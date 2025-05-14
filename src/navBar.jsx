@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // use this if you're using react-router
-import scad from "./Assets/scadd.png"; 
-import nav from "./Assets/navBar.png";
-import { ArrowRight } from "lucide-react";
-import { ChevronRight } from "lucide-react";
+import scad from "./Assets/logo.png"; 
+import { ArrowRight, Home } from "lucide-react";
+import { ChevronRight,Bell,User,House } from "lucide-react";
 
 
 
@@ -31,47 +30,51 @@ function NavBar() {
 
   return (
     <nav className={` flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500 ${
-        scrolling ? "opacity-50" : "opacity-100"
+        scrolling ? "opacity-70" : "opacity-100"
       } bg-white border-b`}
     >
-      <div className="container flex h-16 items-center justify-between px-2 md:px-6 ml-20">
+      <div className="container flex h-24 items-center justify-between px-2 md:px-6 ml-20">
         <Link to="/" >
           <img
             src={scad}
             alt="SCAD Logo"
-            className="w-30 h-14"
+            className="w-30 h-40"
 
           />
         </Link>
 
         {/* Links Container */}
         <div className="flex items-center gap-20 hover:text-white-500">
-          <Link
+  
+  <div className="flex items-center gap-6 px-[40px]">
+    <Link to="/" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <Home className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+  {/* Notifications Icon in Green Circle */}
+  <Link to="/notificationsPro" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <Bell className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+
+  {/* Profile Icon in Green Circle */}
+  <Link to="/profile" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <User className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+</div>
+
+
+<Link
             to="/"
-            className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
+            className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
           >
-            Home
+            Log Out
             <ChevronRight className="w-4 h-5 stroke-[10]" /> 
           </Link>
-          <Link
-            to="/about"
-            className=" flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-          >
-            About Us
-            <ChevronRight className="w-4 h-5 stroke-[10]" />          </Link>
-          <Link
-            to="/Contact-SCAD"
-            className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-          >
-Contact SCAD         
-<ChevronRight className="w-4 h-5 stroke-[10]" />  </Link>
-<Link
-  to="/"
-  className="flex items-center gap-1 text-white text-[18px] font-poppins font-bold px-4 py-2 rounded-md transition-colors bg-yellow-500 hover:bg-yellow-600 hover:text-white"
->
-  Log In/Sign Up
-  <ChevronRight className="w-4 h-5 stroke-[10]" />
-</Link>
 
         </div>
       </div>
