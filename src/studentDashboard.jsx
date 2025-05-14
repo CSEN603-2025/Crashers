@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react";
+import { User, Folder } from "lucide-react";  // Add Folder Icon for Internship Applications
 import axios from "axios";
-import { ChevronRight } from "lucide-react";
-import scad from "./Assets/scadd.png"; // Update the path if needed
+import SlidingSidebar from "./SlidingSidebar";
 
 // Sample companies and internships data
 const allCompanies = [
-  { name: "Tech Innovators Inc.", industry: "Software", recommendations: 12 },
-  { name: "Green Solutions Ltd.", industry: "Sustainability", recommendations: 7 },
-  { name: "Creative Agency", industry: "Marketing", recommendations: 5 },
-  { name: "HealthTech Innovations", industry: "Healthcare", recommendations: 9 },
-  { name: "SecureNet Solutions", industry: "Cyber Security", recommendations: 6 },
-  { name: "EcoTech Enterprises", industry: "Environmental Engineering", recommendations: 8 },
+  { name: "Tech Innovators Inc.", industry: "Software" },
+  { name: "Green Solutions Ltd.", industry: "Sustainability" },
+  { name: "Creative Agency", industry: "Marketing" },
+  { name: "HealthTech Innovations", industry: "Healthcare"},
+  { name: "SecureNet Solutions", industry: "Cyber Security"},
+  { name: "EcoTech Enterprises", industry: "Environmental Engineering"},
 ];
 
 const availableInternships = [
@@ -44,9 +43,14 @@ function StudentDashboard() {
     setLoading(false);
   }, []);
 
-  // Navigate to StudentProfile when icon is clicked
+  // Navigate to StudentProfile when profile icon is clicked
   const handleProfileClick = () => {
     navigate("/StudentProfile");
+  };
+
+  // Navigate to Internship Applications page when the applications icon is clicked
+  const handleApplicationsClick = () => {
+    navigate("/InternshipApplications");
   };
 
   // Navigate to Recommendations page
@@ -58,59 +62,26 @@ function StudentDashboard() {
   const handleViewDetails = (internship) => {
     navigate("/Selection", { state: internship });
   };
+  const [sidebarWidth, setSidebarWidth] = useState("6rem");
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setSidebarWidth("16rem");
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setSidebarWidth("6rem");
+    setIsHovered(false);
+  };
 
   return (
-    <div className="w-screen bg-green-50 min-h-screen text-gray-800 font-sans relative">
-      {/* Navbar */}
-      <nav className={`flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500`}>
-        <div className="container flex h-16 items-center justify-between px-2 md:px-6 ml-20">
-          <Link to="/">
-            <img
-              src={scad}
-              alt="SCAD Logo"
-              className="w-30 h-14"
-            />
-          </Link>
-
-          {/* Links Container */}
-          <div className="flex items-center gap-20 hover:text-white-500">
-            <Link
-              to="/"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              Home
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/about"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              About Us
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/Contact-SCAD"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              Contact SCAD
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/"
-              className="flex items-center gap-1 text-white text-[18px] font-poppins font-bold px-4 py-2 rounded-md transition-colors bg-yellow-500 hover:bg-yellow-600 hover:text-white"
-            >
-              Log In/Sign Up
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16 mt-20">
+    <div className="flex bg-gray-100 min-h-screen text-gray-800 font-sans relative">
+      {/* Main Content */}
+      <div className="flex-grow max-w-7xl mx-auto px-6 sm:px-8 py-16">
         {/* Available Companies Section */}
         <div className="mb-12">
-          <h2 className="text-3xl font-semibold text-green-700 mb-6 text-center">Available Companies</h2>
+          <h2 className="text-5xl font-semibold text-green-700 mb-6 text-center">Available Companies</h2>
           {loading ? (
             <p className="text-center text-green-600">Loading...</p>
           ) : jobInterests.length === 0 ? (
@@ -127,10 +98,10 @@ function StudentDashboard() {
                   <div className="p-8">
                     <h2 className="text-3xl font-semibold text-green-700">{company.name}</h2>
                     <p className="text-lg text-green-500 mt-1">{company.industry}</p>
-
+  
                     <div className="mt-6 flex items-center justify-between">
                       <span className="text-sm text-green-600 font-medium">
-                        {company.recommendations} Recommendations
+                    
                       </span>
                       <button
                         onClick={() => handleRecommendationsClick(company.name)}
@@ -149,10 +120,10 @@ function StudentDashboard() {
             </p>
           )}
         </div>
-
+  
         {/* Available Internships Section */}
         <div className="mb-12">
-          <h2 className="text-3xl font-semibold text-green-700 mb-6 text-center">Available Internships</h2>
+          <h2 className="text-5xl font-semibold text-green-700 mb-6 text-center">Available Internships</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {availableInternships.map((internship) => (
               <div
@@ -174,8 +145,16 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
+  
+      {/* Sliding Sidebar */}
+      <SlidingSidebar
+        sidebarWidth={sidebarWidth}
+        isHovered={isHovered}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
     </div>
   );
-}
+}  
 
 export default StudentDashboard;

@@ -1,0 +1,73 @@
+import React, { useState, useEffect } from "react";
+import SlidingSidebar from "./SlidingSidebar"; // Import the SlidingSidebar
+
+function InternshipApplications() {
+  const [applications, setApplications] = useState([]);
+  const [sidebarWidth, setSidebarWidth] = useState("6rem");
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Fetch applied internships from localStorage
+  useEffect(() => {
+    const appliedInternships = JSON.parse(localStorage.getItem("appliedInternships")) || [];
+    setApplications(appliedInternships);
+  }, []);
+
+  // Sliding sidebar hover effects
+  const handleMouseEnter = () => {
+    setSidebarWidth("16rem");
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setSidebarWidth("6rem");
+    setIsHovered(false);
+  };
+
+  return (
+    <div className="relative w-screen min-h-screen bg-gray-100 pt-12">
+      {/* Sliding Sidebar */}
+      <div
+        className="fixed right-0 top-0 h-full z-50 transition-all duration-300"
+        style={{ width: sidebarWidth }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <SlidingSidebar
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+        <h2 className="text-3xl font-semibold text-green-700 mb-4 text-center">
+          Internship Applications
+        </h2>
+
+        {applications.length === 0 ? (
+          <p className="text-center text-green-600">
+            You haven't applied to any internships yet.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {applications.map((application, index) => (
+              <div
+                key={index}
+                className="p-6 border border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition duration-200"
+              >
+                <h3 className="text-xl font-semibold text-green-700">
+                  {application.role} at {application.company}
+                </h3>
+                <p className="text-gray-600 mt-2">Status: {application.status}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default InternshipApplications;

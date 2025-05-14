@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SlidingSidebar from './SlidingSidebar';  // Import SlidingSidebar
+
+const AvailableCompanies = () => {
+  const navigate = useNavigate();
+
+  const [companies, setCompanies] = useState([
+    {
+      name: 'Google',
+      industry: 'Software Engineering',
+      internships: [
+        {
+          id: 1,
+          title: 'Software Developer Intern',
+          company: 'Google',
+          duration: '6 months',
+          industry: 'Software Engineering',
+          skills: ['JavaScript', 'React', 'Node.js'],
+          paid: true,
+          salary: "$5000/month",
+          description: 'Work on building scalable web applications and modern front-end technologies.',
+        },
+        {
+          id: 2,
+          title: 'Backend Developer Intern',
+          company: 'Google',
+          duration: '3 months',
+          industry: 'Software Engineering',
+          skills: ['Java', 'Spring Boot', 'MySQL'],
+          paid: false,
+          salary: "Unpaid",
+          description: 'Assist in building backend services and optimizing database performance.',
+        },
+      ],
+    },
+    {
+      name: 'Microsoft',
+      industry: 'Computer Science',
+      internships: [
+        {
+          id: 3,
+          title: 'Cloud Solutions Intern',
+          company: 'Microsoft',
+          duration: '4 months',
+          industry: 'Cloud Computing',
+          skills: ['Azure', 'Cloud Security', 'Kubernetes'],
+          paid: true,
+          salary: "$4500/month",
+          description: 'Learn to deploy and manage cloud services on Azure and Kubernetes.',
+        },
+      ],
+    },
+    {
+      name: 'Amazon',
+      industry: 'Computer Science',
+      internships: [
+        {
+          id: 4,
+          title: 'Data Analyst Intern',
+          company: 'Amazon',
+          duration: '5 months',
+          industry: 'Data Science',
+          skills: ['Python', 'Pandas', 'Data Visualization'],
+          paid: true,
+          salary: "$4000/month",
+          description: 'Analyze datasets to derive business insights and support decision-making.',
+        },
+        {
+          id: 5,
+          title: 'Machine Learning Intern',
+          company: 'Amazon',
+          duration: '6 months',
+          industry: 'Artificial Intelligence',
+          skills: ['Python', 'TensorFlow', 'Machine Learning'],
+          paid: true,
+          salary: "$5500/month",
+          description: 'Develop machine learning models for predictive analytics.',
+        },
+      ],
+    },
+    {
+      name: 'IBM',
+      industry: 'Computer Science',
+      internships: [
+        {
+          id: 6,
+          title: 'Cybersecurity Intern',
+          company: 'IBM',
+          duration: '4 months',
+          industry: 'Cybersecurity',
+          skills: ['Network Security', 'Ethical Hacking', 'SIEM Tools'],
+          paid: false,
+          salary: "Unpaid",
+          description: 'Work on penetration testing and securing network infrastructures.',
+        },
+        {
+          id: 7,
+          title: 'Blockchain Developer Intern',
+          company: 'IBM',
+          duration: '3 months',
+          industry: 'Blockchain',
+          skills: ['Solidity', 'Smart Contracts', 'Ethereum'],
+          paid: true,
+          salary: "$4500/month",
+          description: 'Develop smart contracts and decentralized applications on Ethereum.',
+        },
+      ],
+    },
+  ]);
+
+  const handleViewInternships = (company) => {
+    navigate('/view-internships', { state: company });
+  };
+
+  // Sidebar state
+  const [sidebarWidth, setSidebarWidth] = useState("6rem");
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setSidebarWidth("16rem");
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setSidebarWidth("6rem");
+    setIsHovered(false);
+  };
+
+  return (
+    <div className="w-screen min-h-screen bg-gray-100 flex">
+      {/* Main Content */}
+      <div className="w-full pt-12">
+        <h2 className="text-5xl font-semibold text-green-700 mb-12 text-center">
+          Available Companies
+        </h2>
+        <div className="max-w-4xl mx-auto">
+          {companies.map((company, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6"
+            >
+              <div className="flex">
+                {/* Green strip on the left */}
+                <div className="w-2 bg-green-600 rounded-l-lg"></div>
+
+                <div className="w-full p-6">
+                  <h3 className="text-2xl font-semibold text-green-700 mb-2">{company.name}</h3>
+                  <p className="text-gray-600 text-lg mb-4">{company.industry}</p>
+
+                  <button
+                    onClick={() => handleViewInternships(company)}
+                    className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"
+                  >
+                    View Internships
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sliding Sidebar */}
+      <SlidingSidebar
+        setShowProfile={() => {}}
+        sidebarWidth={sidebarWidth}
+        isHovered={isHovered}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
+    </div>
+  );
+};
+
+export default AvailableCompanies;
