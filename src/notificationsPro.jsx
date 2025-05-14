@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "./navBar";
 import SlidingSidebarPro from "./slidingBarPro";
+import { useNavigate } from "react-router-dom";
+
 
 const notificationsData = [
   {
@@ -17,24 +19,23 @@ const notificationsData = [
       agenda: "Intro → Hooks → Live coding",
       start: "2025-05-13T15:00",
       end: "2025-05-13T17:00",
-      type:"live",
+      type: "live",
       actionLabel: "Join Now",
       actionUrl: "/joinNow",
     },
   },
   {
-  id: 4,
-  sender: "MK", // Initials of the attendee or system
-  title: "New Message in React Live Workshop",
-  date: "2025-05-13",
-  isRead: false,
-  type: "Message",
-  details: {
-    name: "React Live Workshop",
-    content:"Is Anyone Recording this workshop?",    
-  }
-},
-
+    id: 4,
+    sender: "MK",
+    title: "New Message in React Live Workshop",
+    date: "2025-05-13",
+    isRead: false,
+    type: "Message",
+    details: {
+      name: "React Live Workshop",
+      content: "Is Anyone Recording this workshop?",
+    },
+  },
   {
     id: 2,
     sender: "SC",
@@ -46,8 +47,7 @@ const notificationsData = [
       description: "Version control essentials and GitHub collaboration.",
       speaker: "Mohamed Samir - DevOps Engineer",
       agenda: "Git init → commit → push/pull → PRs",
-          type: "Recorded",
-
+      type: "Recorded",
       actionLabel: "Watch Now",
       actionUrl: "/recorded",
     },
@@ -65,12 +65,54 @@ const notificationsData = [
       agenda: "Resume tips → Whiteboard coding → Q&A",
       start: "2025-05-18T14:00",
       end: "2025-05-18T16:00",
-    type: "Live",
+      type: "Live",
       actionLabel: "Join Now",
       actionUrl: "/register/interview-workshop",
     },
   },
+  {
+    id: 5,
+    sender: "Scad",
+    title: "Incoming Call: Career Guidance",
+    date: "2025-05-13",
+    isRead: false,
+    type: "Call",
+    details: {
+      name: "Incoming Video Call",
+      description: "You have an incoming video call for Career Guidance.",
+      showActions: true,
+    },
+  },
+  {
+  id: 6,
+  sender: "Scad",
+  title: "Appointment Accepted",
+  date: "2025-05-13",
+  isRead: false,
+  type: "Appointment",
+  details: {
+    name: "SCAD Officer Appointment",
+    description: "Your appointment has been accepted by the SCAD Officer.",
+    officerStatus: "online", // You could change this dynamically in future
+    showStatus: true,
+  },
+},
+ {
+    id: 7,
+    sender: "Scad",
+    title: "Scad Officer Left the Call",
+    date: "2025-05-13",
+    isRead: false,
+    type: "CallUpdate",
+    details: {
+      name: "Video Call Ended",
+      description: "The SCAD Officer has left the video call.",
+      showAlert: true,
+    },
+  }
+
 ];
+
 
 function NotificationsPro() {
   const [notifications, setNotifications] = useState(notificationsData);
@@ -98,6 +140,27 @@ function NotificationsPro() {
       prev.map((n) => (n.id === id ? { ...n, isRead: true } : n))
     );
   };
+  const handleAcceptCall = (id) => {
+  console.log(`Call accepted for notification ID ${id}`);
+  alert("You accepted the call. Redirecting to the video call...");
+  // Implement navigation or WebRTC logic here
+};
+
+const handleRejectCall = (id) => {
+  setToastMessage("Video Call Rejected.");
+  // You could optionally remove or mark it differently
+
+
+  setTimeout(() => {
+    setToastMessage("");
+  }, 3000);
+};
+      const navigate = useNavigate();
+      const [toastMessage, setToastMessage] = useState("");
+
+
+
+
 
   return (
   <div className="bg-gray-100 min-h-screen w-screen relative">
@@ -200,16 +263,49 @@ function NotificationsPro() {
           {new Date(selectedNotif.details.end).toLocaleString()}
         </p>
       )}
+{selectedNotif.type === "Appointment" && selectedNotif.details?.showStatus && (
+  <div className="mt-4">
+    <p>
+      <strong>SCAD Officer Status:</strong>{" "}
+      <span
+        className={`font-semibold ${
+          selectedNotif.details.officerStatus === "online"
+            ? "text-green-600"
+            : "text-gray-400"
+        }`}
+      >
+        {selectedNotif.details.officerStatus === "online"
+          ? "Online"
+          : "Offline"}
+      </span>
+    </p>
+  </div>
+)}
+   {/* Call Notification Buttons */}
+{selectedNotif.type === "Call" && selectedNotif.details?.showActions ? (
+  <div className="flex gap-4 mt-4">
+    <button
+      onClick={() => navigate("/videoCall")}
+      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+    >
+      Accept
+    </button>
+    <button
+      onClick={() => handleRejectCall(selectedNotif.id)}
+      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+    >
+      Reject
+    </button>
+  </div>
+) : selectedNotif.details?.actionUrl ? (
+  <a
+    href={selectedNotif.details.actionUrl}
+    className="inline-block text-white bg-green-600 hover:bg-green-700 px-4 py-2 text-sm rounded-md mt-4"
+  >
+    {selectedNotif.details.actionLabel || "Open"}
+  </a>
+) : null}
 
-      {/* Action Button */}
-      {selectedNotif.details?.actionUrl && (
-        <a
-          href={selectedNotif.details.actionUrl}
-          className="inline-block text-white bg-green-600 hover:bg-green-700 px-4 py-2 text-sm rounded-md"
-        >
-          {selectedNotif.details.actionLabel || "Open"}
-        </a>
-      )}
     </div>
   )}
 </div>
@@ -223,6 +319,11 @@ function NotificationsPro() {
       handleMouseEnter={handleMouseEnter}
       handleMouseLeave={handleMouseLeave}
     />
+     {toastMessage && (
+  <div className="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg animate-fade-in-out z-50">
+    {toastMessage}
+  </div>
+)}
   </div>
 );
 }

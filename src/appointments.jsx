@@ -76,7 +76,7 @@ function Appointments() {
       <div className="text-right mr-24 mb-4">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-green-600 text-white font-poppins px-6 py-3 rounded-lg hover:bg-green-700 inline-flex items-center gap-2"
+          className="bg-gray-500 border-2 border-white text-white font-poppins px-6 py-3 rounded-lg hover:border-green-600 inline-flex items-center gap-2"
         >
           <CalendarPlus className="w-6 h-6" />
           Request a Video Call Appointment
@@ -88,7 +88,7 @@ function Appointments() {
         {appointments.map((appt) => (
           <div
             key={appt.id}
-            className="bg-white p-4 rounded shadow-md flex justify-between items-center border-l-8 border-green-600"
+            className="bg-white p-4 rounded shadow-md flex justify-between items-center border-l-4 border-green-600"
           >
             <div>
               <h2 className="text-lg font-semibold">{appt.type}</h2>
@@ -137,7 +137,7 @@ function Appointments() {
             >
               <X />
             </button>
-            <h2 className="text-xl font-bold mb-4">Request an Appointment</h2>
+            <h2 className="text-xl font-bold mb-4">Appointment Details</h2>
 
             <label className="block text-sm mb-1">Select Date:</label>
             <input
