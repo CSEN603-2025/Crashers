@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
 import SCADSidebar from "./scadSide";
-
+import NavBar from "./navBar";
 
 
 const SCADStatsReport = () => {
@@ -36,13 +36,14 @@ const SCADStatsReport = () => {
 
   return (
      <div className="flex">
+      <NavBar/>
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
       />
-    <div className="w-screen bg-gray-100 min-h-screen p-10 text-gray-800 font-sans">
+    <div className="w-screen mt-24 bg-gray-100 min-h-screen p-10 text-gray-800 font-sans">
       <div className="max-w-3xl mx-auto bg-white shadow-md p-8 rounded-lg">
         <div ref={reportRef}>
           <h1 className="text-3xl font-bold text-green-700 mb-4 text-center">
@@ -103,10 +104,7 @@ const SCADStatsReport = () => {
             <li>Strengthen company relations: Continue collaboration with highly rated companies and explore deeper engagement through long-term programs.</li>
           </ul>
 
-          <p className="mt-6 italic text-sm">
-            Prepared by: SCAD Internship Office<br />
-            Note: This report is auto-generated and intended for internal use only.
-          </p>
+         
         </div>
 
         <div className="text-center mt-8">
