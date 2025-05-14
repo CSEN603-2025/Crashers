@@ -30,7 +30,7 @@ function LandingPage() {
               onClick={handleGetStarted}
               className="bg-green-600 text-white font-semibold py-2 px-6 rounded-md shadow-md hover:bg-green-800 transition-colors"
             >
-              Get Started
+             Register Now!
             </button>
           </div>
         </div>

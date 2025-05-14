@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SlidingSidebar from "./SlidingSidebar";
-import myProfileImage from './assets/myProfile.png'; // Ensure the path is correct
+import NavBar from "./navBar";
+import myProfileImage from './assets/myProfile.png';
+import { Edit2, Save } from "lucide-react";
 
 const majors = ["Computer Science", "Information Systems", "Software Engineering", "Cyber Security"];
 const semesters = Array.from({ length: 8 }, (_, i) => `Semester ${i + 1}`);
@@ -18,8 +20,9 @@ function StudentProfile() {
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [phone, setPhone] = useState(localStorage.getItem("phone") || "");
   const [name, setName] = useState(localStorage.getItem("name") || "");
-  const [newActivity, setNewActivity] = useState("");
   const [activities, setActivities] = useState(JSON.parse(localStorage.getItem("activities")) || []);
+  const [newActivity, setNewActivity] = useState("");
+  const [isEditable, setIsEditable] = useState(false);
 
   // Sidebar hover effects
   const handleMouseEnter = () => {
@@ -43,6 +46,16 @@ function StudentProfile() {
     localStorage.setItem("name", name);
   }, [selectedMajor, selectedSemester, jobInterests, activities, email, phone, name]);
 
+  // Toggle Edit Mode
+  const toggleEditMode = () => {
+    if (isEditable) {
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("phone", phone);
+    }
+    setIsEditable(!isEditable);
+  };
+
   // Handle adding a new job interest
   const handleAddJobInterest = () => {
     if (newJobInterest.trim()) {
@@ -63,48 +76,37 @@ function StudentProfile() {
 
   return (
     <div className="min-h-screen w-screen bg-gray-100 flex justify-center items-start pt-40 px-4 overflow-y-auto">
+      <NavBar />
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl border border-green-200">
+        
         {/* Header Section */}
         <div className="flex flex-col items-center text-center px-10 py-8 border-b border-green-100">
-          <img src={myProfileImage} alt="Profile" className="text-green-800 text-5xl mb-2 w-16 h-16 rounded-full" />
+          <img src={myProfileImage} alt="Profile" className="w-16 h-16 rounded-full" />
           <h2 className="text-3xl font-bold text-green-800 mt-4">Student Profile</h2>
           <p className="text-green-600 text-sm font-poppins font-semibold mt-1">
             Your personalized internship and career hub
           </p>
         </div>
 
-        {/* Profile Section */}
+        {/* Personal Information */}
         <div className="px-10 py-6 border-b border-green-100 bg-green-50">
-          <h3 className="font-bold font-poppins text-gray-900 mb-3">Personal Information</h3>
-
-          <div className="mb-4">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              className="mt-2 px-4 py-2 rounded-md border border-green-300 w-full"
-            />
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold font-poppins text-gray-900 mb-3">Personal Information</h3>
+            <button onClick={toggleEditMode} className="text-green-700 hover:text-green-900 transition-colors">
+              {isEditable ? <Save size={20} /> : <Edit2 size={20} />}
+            </button>
           </div>
 
           <div className="mb-4">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="mt-2 px-4 py-2 rounded-md border border-green-300 w-full"
-            />
+            <p><strong>Name:</strong> {isEditable ? <input value={name} onChange={(e) => setName(e.target.value)} className="border p-1 rounded-md w-full" /> : name}</p>
           </div>
 
           <div className="mb-4">
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Enter your phone number"
-              className="mt-2 px-4 py-2 rounded-md border border-green-300 w-full"
-            />
+            <p><strong>Email:</strong> {isEditable ? <input value={email} onChange={(e) => setEmail(e.target.value)} className="border p-1 rounded-md w-full" /> : email}</p>
+          </div>
+
+          <div className="mb-4">
+            <p><strong>Phone:</strong> {isEditable ? <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border p-1 rounded-md w-full" /> : phone}</p>
           </div>
         </div>
 
@@ -112,17 +114,13 @@ function StudentProfile() {
         <div className="px-10 py-6 border-b border-green-100 bg-green-50">
           <h3 className="font-bold font-poppins text-gray-900 mb-3">Job Interests</h3>
 
-          {jobInterests.length === 0 ? (
-            <p className="text-gray-700">No job interests added yet.</p>
-          ) : (
-            <ul className="space-y-2">
-              {jobInterests.map((interest, index) => (
-                <li key={index} className="text-gray-700">
-                  {interest}
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="space-y-2">
+            {jobInterests.map((interest, index) => (
+              <li key={index} className="text-gray-700">
+                {interest}
+              </li>
+            ))}
+          </ul>
 
           <input
             type="text"
@@ -133,7 +131,7 @@ function StudentProfile() {
           />
           <button
             onClick={handleAddJobInterest}
-            className="bg-green-600 text-white font-poppins px-8 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors mt-3"
+            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
           >
             Add Job Interest
           </button>
@@ -142,18 +140,14 @@ function StudentProfile() {
         {/* College Activities */}
         <div className="px-10 py-6 border-b border-green-100 bg-green-50">
           <h3 className="font-bold font-poppins text-gray-900 mb-3">College Activities</h3>
-
-          {activities.length === 0 ? (
-            <p className="text-gray-700">No activities added yet.</p>
-          ) : (
-            <ul className="space-y-2">
-              {activities.map((activity, index) => (
-                <li key={index} className="text-gray-700">
-                  {activity}
-                </li>
-              ))}
-            </ul>
-          )}
+          
+          <ul className="space-y-2">
+            {activities.map((activity, index) => (
+              <li key={index} className="text-gray-700">
+                {activity}
+              </li>
+            ))}
+          </ul>
 
           <input
             type="text"
@@ -164,20 +158,12 @@ function StudentProfile() {
           />
           <button
             onClick={handleAddActivity}
-            className="bg-green-600 text-white font-poppins px-8 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors mt-3"
+            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
           >
             Add Activity
           </button>
         </div>
       </div>
-
-      {/* Sidebar injected here */}
-      <SlidingSidebar
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
     </div>
   );
 }

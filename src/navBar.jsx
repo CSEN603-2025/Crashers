@@ -4,11 +4,13 @@ import scad from "./Assets/logo.png";
 import { ArrowRight, Home } from "lucide-react";
 import { ChevronRight,Bell,User,House } from "lucide-react";
 
+import { useLocation } from "react-router-dom";
 
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const isBaseRoute = location.pathname === "/";
 
   // Function to handle scroll
   const handleScroll = () => {
@@ -46,7 +48,7 @@ function NavBar() {
         {/* Links Container */}
         <div className="flex items-center gap-20 hover:text-white-500">
   
-  <div className="flex items-center gap-6 px-[40px]">
+{ !isBaseRoute&& <div className="flex items-center gap-6 px-[40px]">
     <Link to="/" className="transition-transform hover:scale-105">
     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
       <Home className="w-6 h-6 text-white" />
@@ -65,16 +67,23 @@ function NavBar() {
       <User className="w-6 h-6 text-white" />
     </div>
   </Link>
-</div>
+</div>}
 
 
-<Link
-            to="/"
-            className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
-          >
-            Log Out
-            <ChevronRight className="w-4 h-5 stroke-[10]" /> 
-          </Link>
+{!isBaseRoute&&<Link
+      to="/"
+      className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
+    >
+      Log Out
+      <ChevronRight className="w-4 h-5 stroke-[10]" /> 
+    </Link>}
+    {isBaseRoute&&<Link
+      to="/login"
+      className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
+    >
+      Log in
+      <ChevronRight className="w-4 h-5 stroke-[10]" /> 
+    </Link>}
 
         </div>
       </div>

@@ -126,7 +126,7 @@ function Selection() {
         {/* Apply Now Button */}
         <button
           onClick={handleApply}
-          className="w-full bg-green-700 text-white py-3 rounded-md font-semibold hover:bg-green-800 transition-all"
+          className="w-full bg-green-700 text-white py-5 rounded-md font-semibold hover:bg-green-800 transition-all"
         >
           Apply Now
         </button>

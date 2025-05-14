@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SlidingSidebar from './SlidingSidebar';  // Import SlidingSidebar
+import SlidingSidebar from './SlidingSidebar';  
+import NavBar from './navBar'; 
 
 const AvailableCompanies = () => {
   const navigate = useNavigate();
@@ -107,6 +108,40 @@ const AvailableCompanies = () => {
         },
       ],
     },
+    {
+      name: 'Meta',
+      industry: 'Software Engineering',
+      internships: [
+        {
+          id: 8,
+          title: 'Front-End Developer Intern',
+          company: 'Meta',
+          duration: '6 months',
+          industry: 'Software Engineering',
+          skills: ['React', 'JavaScript', 'CSS'],
+          paid: true,
+          salary: "$6000/month",
+          description: 'Develop and optimize front-end user experiences for Meta applications.',
+        },
+      ],
+    },
+    {
+      name: 'Oracle',
+      industry: 'Database Management',
+      internships: [
+        {
+          id: 9,
+          title: 'Database Administrator Intern',
+          company: 'Oracle',
+          duration: '4 months',
+          industry: 'Database Management',
+          skills: ['SQL', 'PL/SQL', 'Database Optimization'],
+          paid: true,
+          salary: "$5000/month",
+          description: 'Assist in managing and optimizing large-scale database environments.',
+        },
+      ],
+    },
   ]);
 
   const handleViewInternships = (company) => {
@@ -129,8 +164,8 @@ const AvailableCompanies = () => {
 
   return (
     <div className="w-screen min-h-screen bg-gray-100 flex">
-      {/* Main Content */}
-      <div className="w-full pt-12">
+      <NavBar />
+      <div className="w-full pt-32">
         <h2 className="text-5xl font-semibold text-green-700 mb-12 text-center">
           Available Companies
         </h2>
@@ -141,7 +176,6 @@ const AvailableCompanies = () => {
               className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6"
             >
               <div className="flex">
-                {/* Green strip on the left */}
                 <div className="w-2 bg-green-600 rounded-l-lg"></div>
 
                 <div className="w-full p-6">
