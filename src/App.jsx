@@ -1,7 +1,6 @@
-import NavBar from "./navBar";
-import "./index.css"; // Tailwind must be loaded here
+import "./index.css"; // Tailwind CSS
+import LandingPage from "./landing";
 import Company from "./company";
-import InternshipListings from "./ownListings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
@@ -12,13 +11,15 @@ function App() {
   return (<div>
     <Router>
       <Routes>
-         <Route path="/" element={<Company />} />
         <Route path="/company" element={<Company />} />
+              <Route path="/" element={<LandingPage />} />
+
       </Routes>
     </Router>
     
     <Company/>
     </div>
+
   );
 }
 

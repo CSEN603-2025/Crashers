@@ -49,7 +49,7 @@ export default function CurrentInterns() {
   const [allApplicants, setAllApplicants] = useState(applicantsData);
   const [statusFilter, setStatusFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
-const [showEvaluationModal, setShowEvaluationModal] = useState(false);
+  const [showEvaluationModal, setShowEvaluationModal] = useState(false);
   const [evaluationText, setEvaluationText] = useState("");const [isEditingEvaluation, setIsEditingEvaluation] = useState(false);
   const internships = ["All", ...new Set(applicantsData.map((a) => a.internship))];
   const [evaluations, setEvaluations] = useState({});

@@ -14,17 +14,22 @@ import LiveWorkshop from './liveWorkshop.jsx';
 import Certificates from './certificates.jsx';
 import Recorded from './recorded.jsx';
 import Appointments from './appointments.jsx';
+import RegisterCompany from "./register";
+import CompanyApplications from "./applyingComps.jsx";
+import SCADStatistics from './stats.jsx';
+import AllStudents from './allStudsScad.jsx';
+import AllReports from './allReportsScad.jsx';
+import CareerWorkshops from './workshopsscad.jsx';
+import FacultyReps from './facultyReports.jsx';
+import StudentProfileScad from './Profilescadpov.jsx';
+import SCADReportPage from "./statsReport.jsx";
+import LandingPage from './landing.jsx';
 
 
-
-
-// Import your App component
-
-// Use React 18's new root API (ReactDOM.createRoot)
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
    <Routes>
-            <Route path="/" element={<InternshipListings />} />
+            <Route path="/" element={<LandingPage />} />
       <Route path="/profile" element={<CompanyProfile />} />
             <Route path="/workshopPro" element={<CareerWorkshopsPro />} />
             <Route path="/notificationsPro" element={<NotificationsPro />} />
@@ -39,7 +44,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/currentInterns" element={<CurrentInterns />} />
       <Route path="/applicants" element={<Applicants />} />
       <Route path="/internships" element={<InternshipListings />} />
-      </Routes>
+        <Route path="/register" element={<RegisterCompany />} />
+      <Route path="/scad/companies" element={<CompanyApplications />} />
+      <Route path="/scad/stats" element={<SCADStatistics />} />
+      <Route path="/scad/allstudents" element={<AllStudents />} />
+      <Route path="/scad/allreports" element={<AllReports />} />
+      <Route path="/scad/workshops" element={<CareerWorkshops />} />
+      <Route path="/faculty/reports" element={<FacultyReps />} />
+      <Route path="/student/:id" element={<StudentProfileScad />} />
+      <Route path="/scad/stats/report" element={<SCADReportPage />} />
+
+
+    </Routes>
   </BrowserRouter>
 
 );
