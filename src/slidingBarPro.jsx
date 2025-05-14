@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, User, Users,BadgeCheck,FileText, Clipboard,NotebookPen,PhoneCall, ShieldCheck } from "lucide-react";
+import { Bell, User, Users,BadgeCheck,FileText, Clipboard,NotebookPen,PhoneCall, ShieldCheck, Eye ,BookOpenCheck  } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -44,6 +44,21 @@ const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMous
   <PhoneCall  className="inline-block mr-2 " />
   {isHovered && "Your Appointments"}
 </button>
+<button
+  onClick={() => navigate("/pro/profviews")}
+  className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+>
+  <Eye   className="inline-block mr-2 " />
+  {isHovered && "Profile Views"}
+</button>
+<button
+  onClick={() => navigate("/pro/onlineassessments")}
+  className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+>
+  <BookOpenCheck    className="inline-block mr-2 " />
+  {isHovered && "Online Assessments"}
+</button>
+
        <div className="relative group w-full flex items-center justify-center mt-10">
   <div className="flex items-center gap-1 bg-yellow-400 text-white font-bold ml-6 font-poppins text-xs px-3 py-2 rounded-full shadow-md">
     <BadgeCheck className="w-4 h-4 mr-1" />

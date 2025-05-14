@@ -33,6 +33,9 @@ import AvailableCompanies from './availableCompanies';
 import AllInternships from './allInternships';
 import CompletedInternships from './completedInternships';
 import ViewInternships from './viewInternships';
+import CompaniesViewedMe from './profViews.jsx';
+import OnlineAssessments from './onlineAssessments.jsx';
+
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -71,6 +74,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/faculty/reports" element={<FacultyReps />} />
       <Route path="/student/:id" element={<StudentProfileScad />} />
       <Route path="/scad/stats/report" element={<SCADReportPage />} />
+        <Route path="/pro/profviews" element={<CompaniesViewedMe />} />
+        <Route path="/pro/onlineassessments" element={<OnlineAssessments />} />
 
 
     </Routes>

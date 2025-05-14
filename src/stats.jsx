@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SCADSidebar from "./scadSide";
 import { useNavigate } from "react-router-dom";
-
+import NavBar from "./navBar";
 
 const SCADStatistics = () => {
     const navigate = useNavigate();
@@ -45,14 +45,16 @@ const SCADStatistics = () => {
 
   return (
      <div>
+               <NavBar/> 
+
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
       />
-    <div className="w-screen bg-gray-100 min-h-screen text-gray-800 font-sans px-6 py-12"
-   style={{ paddingRight: sidebarWidth }}>
+    <div className="w-screen mt-24 bg-gray-100 min-h-screen text-gray-800 font-sans px-6 py-12"
+  >
       <h1 className="text-4xl text-center font-poppins text-green-800 mb-10">
         SCAD Internship Statistics Dashboard
       </h1>

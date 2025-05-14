@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SCADSidebar from "./scadSide";
+import NavBar from "./navBar";
 
 const dummyCompanies = [
   {
@@ -70,6 +71,8 @@ const CompanyApplications = () => {
 
   return (
     <div className="flex">
+             <NavBar/> 
+
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
@@ -77,7 +80,7 @@ const CompanyApplications = () => {
         handleMouseLeave={handleMouseLeave}
       />
       <div
-        className="w-screen bg-gray-100 min-h-screen text-gray-800 font-sans px-6 py-12 transition-all duration-300"
+        className="w-screen mt-24 bg-gray-100 min-h-screen text-gray-800 font-sans px-6 py-12 transition-all duration-300"
         
       >
         <h1 className="text-4xl font-poppins text-green-800 text-center mb-10">

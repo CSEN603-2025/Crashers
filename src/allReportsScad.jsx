@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import SCADSidebar from "./scadSide";
+import NavBar from "./navBar";
 
 const dummyReports = [
   {
@@ -73,6 +74,7 @@ const AllReports = () => {
 
   return (
     <div className="flex">
+       <NavBar/> 
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
@@ -81,8 +83,8 @@ const AllReports = () => {
       />
 
       <div
-        className="w-screen min-h-screen bg-gray-100 px-6 py-12 text-gray-800 font-poppins w-full"
-style={{ paddingRight: sidebarWidth }}      >
+        className="w-screen min-h-screen mt-24 bg-gray-100 px-6 py-12 text-gray-800 font-poppins w-full"
+     >
         <h1 className="text-4xl font-poppins text-green-800 text-center mb-10">
           Internship Reports
         </h1>

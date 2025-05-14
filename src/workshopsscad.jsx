@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SCADSidebar from "./scadSide";
+import NavBar from "./navBar";
+
 const generateId = () =>
   Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 
@@ -82,14 +84,16 @@ const CareerWorkshops = () => {
 
   return (
     <div className="flex">
+             <NavBar/> 
+
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
       />
-    <div className="w-screen min-h-screen bg-gray-100 px-6 py-12 text-gray-800 font-poppins"
-     style={{ paddingRight: sidebarWidth }}>
+    <div className="w-screen min-h-screen pt-32 bg-gray-100 px-6 py-12 text-gray-800 font-poppins"
+     >
       <h1 className="text-4xl font-poppins text-green-800 text-center mb-10">
         Online Career Workshops
       </h1>

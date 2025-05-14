@@ -65,8 +65,7 @@ const dummyStudents = [
         handleMouseLeave={handleMouseLeave}
       />
 <div
-  className="w-screen min-h-screen bg-gray-100 px-6 py-12 pt-24 text-gray-800 font-poppins transition-all duration-300"
-  style={{ paddingRight: sidebarWidth }}
+  className="w-screen min-h-screen bg-gray-100 px-6 py-12 pt-32 text-gray-800 font-poppins transition-all duration-300"
 > 
       <NavBar />
 
@@ -75,7 +74,7 @@ const dummyStudents = [
       </h1>
 
       {/* Filter */}
-      <div className="flex mb-12">
+      <div className=" pr-24 flex mb-12">
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -89,7 +88,7 @@ const dummyStudents = [
       </div>
 
       {/* Student List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pr-24 gap-6 max-w-screen-xl mx-auto">
         {filteredStudents.map((student) => (
           <div
             key={student.id}
