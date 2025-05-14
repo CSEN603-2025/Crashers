@@ -9,7 +9,7 @@ const SCADSidebar = ({sidebarWidth, isHovered, handleMouseEnter, handleMouseLeav
   return (
     <div
       className="fixed top-24 right-0 w-[6rem] h-full bg-gray-700 border-l border-gray-300 shadow-lg transition-all duration-300 z-20"
-      style={{ width: sidebarWidth, marginTop: "30px" }}
+      style={{ width: sidebarWidth}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
