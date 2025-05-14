@@ -61,7 +61,8 @@ const ViewInternships = () => {
                   </p>
                 </div>
 
-                <div className="flex justify-end mt-4">
+                {/* Apply Now Button - Aligned to the left */}
+                <div className="flex justify-start mt-4">
                   <button
                     onClick={() => navigate('/selection', { state: intern })}  // Pass the selected internship data
                     className="bg-green-600 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-green-700 transition-colors"

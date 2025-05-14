@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, User, Folder, Briefcase, Search } from "lucide-react";
+import { Bell, User, Folder, Briefcase, Search, FileText } from "lucide-react"; // Imported FileText icon for My Reports
 import { useNavigate } from "react-router-dom";
 
 const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
@@ -19,24 +19,6 @@ const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouse
           </span>
         )}
 
-        {/* Notifications
-        <button
-          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
-        >
-          <Bell className="inline-block mr-2" />
-          {isHovered && "Notifications"}
-        </button> */}
-
-        {/* Profile */}
-        <button
-          onClick={() => navigate("/studentProfile")}
-          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
-        >
-          <User className="inline-block mr-2" />
-          {isHovered && "Profile"}
-        </button>
-
-        {/* Internship Applications */}
         <button
           onClick={() => navigate("/InternshipApplications")}
           className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
@@ -45,16 +27,6 @@ const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouse
           {isHovered && "Internship Applications"}
         </button>
 
-        {/* Apply Now */}
-        {/* <button
-          onClick={() => navigate("/AvailableInternships")}
-          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
-        >
-          <Briefcase className="inline-block mr-2" />
-          {isHovered && "Apply Now"}
-        </button> */}
-
-        {/* Discover Companies */}
         <button
           onClick={() => navigate("/AvailableCompanies")}
           className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
@@ -70,6 +42,15 @@ const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouse
         >
           <Briefcase className="inline-block mr-2" />
           {isHovered && "My Internships"}
+        </button>
+
+        {/* My Reports Button */}
+        <button
+          onClick={() => navigate("/myReports")}  // Navigate to MyReports page
+          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <FileText className="inline-block mr-2" />  {/* File icon for My Reports */}
+          {isHovered && "My Reports"}
         </button>
       </div>
     </div>

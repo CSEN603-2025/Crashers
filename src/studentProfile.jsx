@@ -4,17 +4,12 @@ import NavBar from "./navBar";
 import myProfileImage from './assets/myProfile.png';
 import { Edit2, Save } from "lucide-react";
 
-const majors = ["Computer Science", "Information Systems", "Software Engineering", "Cyber Security"];
-const semesters = Array.from({ length: 8 }, (_, i) => `Semester ${i + 1}`);
-
 function StudentProfile() {
   // States for Sidebar
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
 
   // Profile States with LocalStorage persistence
-  const [selectedMajor, setSelectedMajor] = useState(localStorage.getItem("selectedMajor") || "");
-  const [selectedSemester, setSelectedSemester] = useState(localStorage.getItem("selectedSemester") || "");
   const [jobInterests, setJobInterests] = useState(JSON.parse(localStorage.getItem("jobInterests")) || []);
   const [newJobInterest, setNewJobInterest] = useState("");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
@@ -37,14 +32,12 @@ function StudentProfile() {
 
   // Persist data to localStorage on change
   useEffect(() => {
-    localStorage.setItem("selectedMajor", selectedMajor);
-    localStorage.setItem("selectedSemester", selectedSemester);
     localStorage.setItem("jobInterests", JSON.stringify(jobInterests));
     localStorage.setItem("activities", JSON.stringify(activities));
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
     localStorage.setItem("name", name);
-  }, [selectedMajor, selectedSemester, jobInterests, activities, email, phone, name]);
+  }, [jobInterests, activities, email, phone, name]);
 
   // Toggle Edit Mode
   const toggleEditMode = () => {
@@ -75,9 +68,10 @@ function StudentProfile() {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gray-100 flex justify-center items-start pt-40 px-4 overflow-y-auto">
+    <div className="min-h-screen w-screen bg-gray-100 flex justify-center items-start pt-24 overflow-y-auto">
       <NavBar />
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl border border-green-200">
+
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl border border-green-200 mt-5">
         
         {/* Header Section */}
         <div className="flex flex-col items-center text-center px-10 py-8 border-b border-green-100">
@@ -138,9 +132,9 @@ function StudentProfile() {
         </div>
 
         {/* College Activities */}
-        <div className="px-10 py-6 border-b border-green-100 bg-green-50">
+        <div className="px-10 py-6 bg-green-50">
           <h3 className="font-bold font-poppins text-gray-900 mb-3">College Activities</h3>
-          
+
           <ul className="space-y-2">
             {activities.map((activity, index) => (
               <li key={index} className="text-gray-700">
@@ -164,6 +158,13 @@ function StudentProfile() {
           </button>
         </div>
       </div>
+
+      <SlidingSidebar
+        sidebarWidth={sidebarWidth}
+        isHovered={isHovered}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
     </div>
   );
 }

@@ -62,7 +62,7 @@ function NavBar() {
   </Link>
 
   {/* Profile Icon in Green Circle */}
-  <Link to="/profile" className="transition-transform hover:scale-105">
+  <Link to="/studentProfile" className="transition-transform hover:scale-105">
     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
       <User className="w-6 h-6 text-white" />
     </div>
