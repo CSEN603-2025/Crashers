@@ -42,7 +42,7 @@ const handleSubmit = (e) => {
 return (
   <div>
     <button
-      className="bg-blue-500 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-blue-600 transition-colors"
+      className="bg-green-600 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-green-700 transition-colors"
       onClick={handleButtonClick}
     >
       Post an Internship
@@ -51,7 +51,7 @@ return (
     {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 overflow-y-auto pt-10 px-4">
         <div className="bg-white p-8 rounded-md w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-lg">
-        <h2 className=" text-1xl bg-blue-500 text-white font-bold font-poppins px-6 py-2 mb-4 rounded border border-blue-700">Post an Internship</h2>
+        <h2 className=" text-1xl bg-green-700 text-white font-bold font-poppins px-6 py-2 mb-4 rounded border border-green-700">Post an Internship</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-gray-700 font-semibold">Duration</label>
@@ -125,7 +125,7 @@ return (
               </button>
               <button
                 type="submit"
-                className="bg-blue-600 font-bold text-white px-6 py-2 rounded hover:bg-blue-700"
+                className="bg-green-600 font-bold text-white px-6 py-2 rounded hover:bg-green-700"
               >
                 Submit
               </button>

@@ -1,23 +1,26 @@
-import NavBar from "./navBar";
-import "./index.css"; // Tailwind must be loaded here
+import "./index.css"; // Tailwind CSS
+import LandingPage from "./landing";
 import Company from "./company";
 import LoginPage from "./login";
 import StudentDashboard from "./studentDashboard";
 import StudentProfile from "./studentProfile";
 import Selection from "./selection";
-import Recommendations from "./Recommendations";
 import InternshipApplications from "./internshipApplications";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
+
 
 
 function App() {
   return (<div>
     <LoginPage/>
     <StudentDashboard/>
-    <Recommendations/>
     <StudentProfile/> 
     <Selection/>
     <InternshipApplications/>
     </div>
+
   );
 }
 

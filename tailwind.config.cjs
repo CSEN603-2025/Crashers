@@ -3,6 +3,7 @@ module.exports = {
   purge: ['./src/*/.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
     extend: {
+      display: ['group-hover'],
       width: {
         '64': '16rem', // this defines the w-64 width
       },

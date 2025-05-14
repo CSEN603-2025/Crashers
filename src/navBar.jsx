@@ -1,181 +1,85 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react";
-import axios from "axios";
-import { ChevronRight } from "lucide-react";
-import scad from "./Assets/scadd.png"; // Update the path if needed
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // use this if you're using react-router
+import scad from "./Assets/logo.png"; 
+import { ArrowRight, Home } from "lucide-react";
+import { ChevronRight,Bell,User,House } from "lucide-react";
 
-// Sample companies and internships data
-const allCompanies = [
-  { name: "Tech Innovators Inc.", industry: "Software", recommendations: 12 },
-  { name: "Green Solutions Ltd.", industry: "Sustainability", recommendations: 7 },
-  { name: "Creative Agency", industry: "Marketing", recommendations: 5 },
-  { name: "HealthTech Innovations", industry: "Healthcare", recommendations: 9 },
-  { name: "SecureNet Solutions", industry: "Cyber Security", recommendations: 6 },
-  { name: "EcoTech Enterprises", industry: "Environmental Engineering", recommendations: 8 },
-];
 
-const availableInternships = [
-  { id: 1, company: "Tech Innovators Inc.", role: "Software Developer", duration: "6 months", paid: true, salary: "$5000/month", skills: ["JavaScript", "React", "Node.js"], industry: "Software" },
-  { id: 2, company: "Green Solutions Ltd.", role: "Sustainability Consultant", duration: "3 months", paid: true, salary: "$3000/month", skills: ["Sustainability", "Research", "Environmental Science"], industry: "Sustainability" },
-  { id: 3, company: "Creative Agency", role: "Marketing Intern", duration: "4 months", paid: false, skills: ["SEO", "Content Creation", "Marketing"], industry: "Marketing" },
-  { id: 4, company: "HealthTech Innovations", role: "Health Tech Developer", duration: "6 months", paid: true, salary: "$4500/month", skills: ["React", "Java", "Health Tech"], industry: "Healthcare" },
-];
 
-function StudentDashboard() {
-  const navigate = useNavigate();
-  const [jobInterests, setJobInterests] = useState([]);
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
-  const [loading, setLoading] = useState(true);
+function NavBar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
-  // Load job interests from localStorage
-  useEffect(() => {
-    const interests = JSON.parse(localStorage.getItem("jobInterests")) || [];
-    setJobInterests(interests);
-
-    if (interests.length > 0) {
-      const matchedCompanies = allCompanies.filter((company) =>
-        interests.some((interest) =>
-          company.industry.toLowerCase().includes(interest.toLowerCase())
-        )
-      );
-      setFilteredCompanies(matchedCompanies);
+  // Function to handle scroll
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setScrolling(true); // Start fading when scrolled down 50px
+    } else {
+      setScrolling(false); // Reset opacity when on top
     }
-    setLoading(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Navigate to StudentProfile when icon is clicked
-  const handleProfileClick = () => {
-    navigate("/StudentProfile");
-  };
-
-  // Navigate to Recommendations page
-  const handleRecommendationsClick = (companyName) => {
-    navigate(`/Recommendations/${companyName}`);
-  };
-
-  // Navigate to Selection page when an internship is selected
-  const handleViewDetails = (internship) => {
-    navigate("/Selection", { state: internship });
-  };
 
   return (
-    <div className="w-screen bg-green-50 min-h-screen text-gray-800 font-sans relative">
-      {/* Navbar */}
-      <nav className={`flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500`}>
-        <div className="container flex h-16 items-center justify-between px-2 md:px-6 ml-20">
-          <Link to="/">
-            <img
-              src={scad}
-              alt="SCAD Logo"
-              className="w-30 h-14"
-            />
+    <nav className={` flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500 ${
+        scrolling ? "opacity-70" : "opacity-100"
+      } bg-white border-b`}
+    >
+      <div className="container flex h-24 items-center justify-between px-2 md:px-6 ml-20">
+        <Link to="/" >
+          <img
+            src={scad}
+            alt="SCAD Logo"
+            className="w-30 h-40"
+
+          />
+        </Link>
+
+        {/* Links Container */}
+        <div className="flex items-center gap-20 hover:text-white-500">
+  
+  <div className="flex items-center gap-6 px-[40px]">
+    <Link to="/" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <Home className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+  {/* Notifications Icon in Green Circle */}
+  <Link to="/notificationsPro" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <Bell className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+
+  {/* Profile Icon in Green Circle */}
+  <Link to="/profile" className="transition-transform hover:scale-105">
+    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+      <User className="w-6 h-6 text-white" />
+    </div>
+  </Link>
+</div>
+
+
+<Link
+            to="/"
+            className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
+          >
+            Log Out
+            <ChevronRight className="w-4 h-5 stroke-[10]" /> 
           </Link>
 
-          {/* Links Container */}
-          <div className="flex items-center gap-20 hover:text-white-500">
-            <Link
-              to="/"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              Home
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/about"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              About Us
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/Contact-SCAD"
-              className="flex items-center gap-1 text-primary font-poppins font-bold text-[18px] leading-[140%] hover:text-blue-500 px-[40px] transition-colors"
-            >
-              Contact SCAD
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-            <Link
-              to="/"
-              className="flex items-center gap-1 text-white text-[18px] font-poppins font-bold px-4 py-2 rounded-md transition-colors bg-yellow-500 hover:bg-yellow-600 hover:text-white"
-            >
-              Log In/Sign Up
-              <ChevronRight className="w-4 h-5 stroke-[10]" />
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16 mt-20">
-        {/* Available Companies Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-semibold text-green-700 mb-6 text-center">Available Companies</h2>
-          {loading ? (
-            <p className="text-center text-green-600">Loading...</p>
-          ) : jobInterests.length === 0 ? (
-            <p className="text-center text-green-600">
-              Please enter your job interests in your profile to view relevant companies.
-            </p>
-          ) : filteredCompanies.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredCompanies.map((company, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg shadow-lg border-l-8 border-green-600 transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                >
-                  <div className="p-8">
-                    <h2 className="text-3xl font-semibold text-green-700">{company.name}</h2>
-                    <p className="text-lg text-green-500 mt-1">{company.industry}</p>
-
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className="text-sm text-green-600 font-medium">
-                        {company.recommendations} Recommendations
-                      </span>
-                      <button
-                        onClick={() => handleRecommendationsClick(company.name)}
-                        className="bg-green-600 text-white py-3 px-6 rounded-md text-sm font-semibold hover:bg-green-700 transition-all"
-                      >
-                        Recommendations
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-green-600">
-              No companies found for your job interests. Try adding more interests in your profile.
-            </p>
-          )}
-        </div>
-
-        {/* Available Internships Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-semibold text-green-700 mb-6 text-center">Available Internships</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {availableInternships.map((internship) => (
-              <div
-                key={internship.id}
-                className="bg-white rounded-lg shadow-lg border-l-8 border-green-600 transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                <div className="p-8">
-                  <h3 className="text-3xl font-semibold text-green-700">{internship.company}</h3>
-                  <p className="text-lg text-green-500">{internship.role}</p>
-                  <button
-                    onClick={() => handleViewDetails(internship)}
-                    className="bg-green-600 text-white py-3 px-6 rounded-md text-sm font-semibold hover:bg-green-700 transition-all mt-4"
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
-export default StudentDashboard;
+export default NavBar;
