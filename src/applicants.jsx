@@ -4,8 +4,6 @@ import NavBar from "./navBar";
 import cv from "./Assets/CV.pdf";
 import AcceptedApplicantsModal from "./AcceptedApplicantsModal"; // You'll create this
 
-
-// Sample applicants data
 const applicants = [
   {
     id: 1,
@@ -18,8 +16,7 @@ const applicants = [
     appliedOn: "2025-05-01",
     startDate: "2025-07-15",
     endDate: "2025-10-01",
-    cvFile: cv  // <-- hardcoded CV file here
-
+    cvFile: cv,
   },
   {
     id: 2,
@@ -32,10 +29,9 @@ const applicants = [
     appliedOn: "2025-05-03",
     startDate: "2025-07-15",
     endDate: "2025-09-05",
-    cvFile: cv // <-- hardcoded CV file here
-
+    cvFile: cv,
   },
-   {
+  {
     id: 3,
     name: "Malak Soliman",
     internship: "Marketing Internship",
@@ -46,20 +42,11 @@ const applicants = [
     appliedOn: "2025-08-13",
     startDate: "2025-08-15",
     endDate: "2025-09-15",
-    cvFile: cv  // <-- hardcoded CV file here
-
-
-
+    cvFile: cv,
   },
 ];
 
-// Status options for filtering
-const statusOptions = [
-  "Pending",
-  "Finalized",
-  "Accepted",
-  "Rejected",
-];
+const statusOptions = ["Pending", "Finalized", "Accepted", "Rejected"];
 
 export default function Applicants() {
   const [selectedInternship, setSelectedInternship] = useState("All");
@@ -69,13 +56,11 @@ export default function Applicants() {
 
   const internships = ["All", ...new Set(applicants.map((a) => a.internship))];
 
-  // Filter applicants based on selected internship
   const filteredApplicants =
     selectedInternship === "All"
       ? allApplicants
       : allApplicants.filter((app) => app.internship === selectedInternship);
 
-  // Update applicant status
   const updateStatus = (id, newStatus) => {
     const updated = allApplicants.map((app) =>
       app.id === id ? { ...app, status: newStatus } : app
@@ -85,44 +70,46 @@ export default function Applicants() {
       setSelectedApplicant({ ...selectedApplicant, status: newStatus });
     }
   };
-   const [showProfile, setShowProfile] = useState(false);
-    const [sidebarWidth, setSidebarWidth] = useState("6rem");
-    const [isHovered, setIsHovered] = useState(false);
-  
-    const handleMouseEnter = () => {
-      setSidebarWidth("16rem");
-      setIsHovered(true);
-    };
-  
-    const handleMouseLeave = () => {
-      setSidebarWidth("6rem");
-      setIsHovered(false);
-    };
 
+  const [showProfile, setShowProfile] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState("6rem");
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setSidebarWidth("16rem");
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setSidebarWidth("6rem");
+    setIsHovered(false);
+  };
 
   return (
-    <div className="bg-gray-100 w-screen mt-20  min-h-screen py-12 px-6">
-        <NavBar/>
-        <div className="flex justify-end mr-32">
-        
-    </div>
+    <div className="bg-gray-100 w-screen mt-20 min-h-screen py-12 px-6">
+      <NavBar />
+      <div className="flex justify-end mr-32"></div>
+
       {/* Filter Dropdown */}
       <div className="mb-6 text-right mr-32">
         <div className="flex justify-between items-center mb-6 mt-6">
-        <h1 className="text-3xl text-primary font-semibold font-poppins text-left ml-12 mb-2">
-        Applications:
-      </h1>
-<div className="flex justify-end w-full">
-  <label className="font-medium text-green-700 mr-4">Filter by Internship:</label>
-</div>        <select
-          value={selectedInternship}
-          onChange={(e) => setSelectedInternship(e.target.value)}
-          className="px-3 py-2 rounded border border-green-300 bg-white shadow-sm"
-        >
-          {internships.map((title) => (
-            <option key={title}>{title}</option>
-          ))}
-        </select>
+          <h1 className="text-3xl text-primary font-semibold font-poppins text-left ml-12 mb-2">
+            Applications:
+          </h1>
+          <div className="flex justify-end w-full">
+            <label className="font-medium text-green-700 mr-4">
+              Filter by Internship:
+            </label>
+          </div>
+          <select
+            value={selectedInternship}
+            onChange={(e) => setSelectedInternship(e.target.value)}
+            className="px-3 py-2 rounded border border-green-300 bg-white shadow-sm"
+          >
+            {internships.map((title) => (
+              <option key={title}>{title}</option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -155,39 +142,76 @@ export default function Applicants() {
         ))}
       </div>
 
-      {/* Applicant Details Modal (if any applicant selected) */}
+      {/* Applicant Details Modal */}
       {selectedApplicant && (
-        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full">
             <h2 className="text-2xl font-semibold text-green-700 mb-4">
               {selectedApplicant.name}
             </h2>
-            <p><strong>Internship:</strong> {selectedApplicant.internship}</p>
-            <p><strong>Email:</strong> {selectedApplicant.email}</p>
-            <p><strong>Phone:</strong> {selectedApplicant.phone}</p>
-            <p><strong>Details:</strong> {selectedApplicant.details}</p>
+            <p>
+              <strong>Internship:</strong> {selectedApplicant.internship}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedApplicant.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedApplicant.phone}
+            </p>
+            <p>
+              <strong>Details:</strong> {selectedApplicant.details}
+            </p>
 
-           {/* New Buttons */}
-<div className="flex gap-4 mt-4">
-  <a
-    href={selectedApplicant.cvFile}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-  >
-    View CV
-  </a>
+            {/* Container for status, links, and close button */}
+            <div className="flex items-center gap-4 mt-6 flex-wrap">
+              {/* Status Update */}
+              <div className="flex items-center gap-2">
+                <label className="font-medium text-green-700">Status:</label>
+                <select
+                  value={selectedApplicant.status}
+                  onChange={(e) => updateStatus(selectedApplicant.id, e.target.value)}
+                  className="px-3 py-2 rounded border border-green-300 bg-white shadow-sm"
+                >
+                  {statusOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-  <a
-    href={selectedApplicant.cvFile}
-    download
-    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-  >
-    Download CV
-  </a>
-</div>
+              {/* View CV button */}
+              <a
+                href={selectedApplicant.cvFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                View CV
+              </a>
 
-       <SlidingSidebar
+              {/* Download CV button */}
+              <a
+                href={selectedApplicant.cvFile}
+                download
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+              >
+                Download CV
+              </a>
+
+              {/* Close button */}
+              <button
+                className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+                onClick={() => setSelectedApplicant(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <SlidingSidebar
         setShowProfile={setShowProfile}
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
