@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { BellDot } from "lucide-react";
+import { Bell, BellDot } from "lucide-react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 
@@ -163,10 +163,10 @@ export default function NotificationBell() {
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <button
-        className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center"
+        className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center relative"
         onClick={() => setOpen((prev) => !prev)}
-      >
-        <BellDot className="w-5 h-5 text-white" />
+      >    <Bell className="fixed w-6 h-6 text-white z-10 " />
+
         {notificationsData.some((n) => !n.isRead) && (
           <span className="absolute top-0 right-0 inline-block w-2 h-2 bg-red-600 rounded-full"></span>
         )}

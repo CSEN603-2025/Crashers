@@ -127,7 +127,13 @@ const handleSend = () => {
         placeholder="Write your notes..."
         value={noteText}
         onChange={(e) => setNoteText(e.target.value)}
-      />
+      />      
+    <button
+        className=" text-white bg-gray-600 hover:bg-gray-700"
+        onClick={() => setShowNotes(false)}
+      >
+        Done
+      </button>
       <button
         className="absolute top-2 right-2 text-gray-500 hover:text-black"
         onClick={() => setShowNotes(false)}
