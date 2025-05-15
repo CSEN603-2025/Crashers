@@ -9,7 +9,27 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === 'test@example.com') {
-      navigate('/availableCompanies');
+    localStorage.setItem("role", "student");
+    navigate('/availableCompanies');
+    } 
+    else if (email === 'company@example.com') {
+    localStorage.setItem("role", "company");
+navigate('/company');}
+   
+   else if (email === 'pro@gmail.com') {
+    localStorage.setItem("role", "pro");
+
+      navigate('/studentHome');
+    } 
+    else if (email === 'scad@example.com') {
+    localStorage.setItem("role", "scad");
+
+      navigate('/studentHome');
+    } 
+     else if (email === 'faculty@example.com') {
+      localStorage.setItem("role", "faculty");
+
+      navigate('/studentHome');
     } else {
       alert('Invalid credentials');
     }

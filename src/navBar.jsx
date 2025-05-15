@@ -5,12 +5,32 @@ import { ArrowRight, Home } from "lucide-react";
 import { ChevronRight,Bell,User,House } from "lucide-react";
 
 import { useLocation } from "react-router-dom";
+import NotificationBell from "./notificationsPro";
 
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const isBaseRoute = location.pathname === "/";
+  const role = localStorage.getItem("role");
+
+const getNotificationPath = () => {
+  if (role === "company") return "/notificationsCompany";
+  if (role === "pro") return "/notificationsPro";
+  if (role === "student") return "/notificationsStudent";
+  if (role === "scad") return "/notificationsScad";
+
+
+  return "/notifications"; // default
+};
+
+const getProfilePath = () => {
+  if (role === "company") return "/profile";
+  if (role === "proStudent") return "/pro/studentProfile";
+  if (role === "student") return "/studentProfile";
+
+  return "/studentProfile"; // default
+};
 
   // Function to handle scroll
   const handleScroll = () => {
@@ -55,14 +75,15 @@ function NavBar() {
     </div>
   </Link>
   {/* Notifications Icon in Green Circle */}
-  <Link to="/notificationsPro" className="transition-transform hover:scale-105">
+  {/* <Link to={getNotificationPath()} className="transition-transform hover:scale-105">
     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
       <Bell className="w-6 h-6 text-white" />
     </div>
-  </Link>
+  </Link> */}
+  <NotificationBell/>
 
   {/* Profile Icon in Green Circle */}
-  <Link to="/studentProfile" className="transition-transform hover:scale-105">
+  <Link to={getProfilePath()} className="transition-transform hover:scale-105">
     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
       <User className="w-6 h-6 text-white" />
     </div>

@@ -59,7 +59,7 @@ const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMous
   {isHovered && "Online Assessments"}
 </button>
 
-       <div className="relative group w-full flex items-center justify-center mt-10">
+       <div className="relative group w-full flex items-center justify-center mt-2">
   <div className="flex items-center gap-1 bg-yellow-400 text-white font-bold ml-6 font-poppins text-xs px-3 py-2 rounded-full shadow-md">
     <BadgeCheck className="w-4 h-4 mr-1" />
  PRO

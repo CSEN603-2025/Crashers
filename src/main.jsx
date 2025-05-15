@@ -35,6 +35,8 @@ import CompletedInternships from './completedInternships';
 import ViewInternships from './viewInternships';
 import CompaniesViewedMe from './profViews.jsx';
 import OnlineAssessments from './onlineAssessments.jsx';
+import NotificationsStudent from './notificationsStudent.jsx';
+
 import VideoCall from './videoCall.jsx';
 import "./index.css";
 
@@ -44,6 +46,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/login" element={<LoginPage />} /> 
       <Route path="availableCompanies" element={<AvailableCompanies />} />
       <Route path="studentProfile" element={<StudentProfile />} /> 
+            <Route path="studentHome" element={<StudentHome />} /> 
+
       <Route path="selection" element={<Selection />} /> 
       <Route path="/InternshipApplications" element={<InternshipApplications />} /> 
       <Route path="/allInternships" element={<AllInternships />} /> 
@@ -57,6 +61,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/joinNow" element={<LiveWorkshop />} />
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/recorded" element={<Recorded />} />
+                        <Route path="/notificationsStudent" element={<NotificationsStudent />} />
+
 
 
       <Route path="/call" element={<Appointments />} />
