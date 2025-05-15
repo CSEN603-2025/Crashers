@@ -130,7 +130,7 @@ const CareerWorkshops = () => {
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => openModal(w)}
-                className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                className="text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-blue-700"
               >
                 Edit
               </button>

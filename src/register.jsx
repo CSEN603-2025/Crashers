@@ -13,7 +13,7 @@ const RegisterCompany = () => {
   const navigate = useNavigate(); 
 
 const handleSubmit = () => {
-    navigate("/company"); 
+    navigate("/login"); 
   };
   const handleChange = (e) => {
     const { name, value, files } = e.target;

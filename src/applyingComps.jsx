@@ -137,7 +137,7 @@ const CompanyApplications = () => {
               <div className="flex flex-col gap-2 justify-center mt-6 md:mt-0 md:ml-6 w-full md:w-48">
                 <button
                   onClick={() => setSelectedCompany(company)}
-                  className="bg-gray-600 text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-blue-700"
+                  className="bg-gray-600 text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-700"
                 >
                   View Details
                 </button>
@@ -168,6 +168,13 @@ const CompanyApplications = () => {
               <p className="text-sm text-gray-600 mb-2"><strong>Email:</strong> {selectedCompany.email}</p>
               <p className="text-sm text-gray-700 mt-4">{selectedCompany.description}</p>
               <div className="flex justify-end mt-6">
+                 <a
+    href={`/files/${selectedCompany.fileName || "CompanyInfo.pdf"}`}
+    download
+    className="bg-green-700 text-white py-2 px-4 rounded hover:bg-green-800"
+  >
+    Download Company Documents
+  </a>
                 <button
                   onClick={() => setSelectedCompany(null)}
                   className="bg-gray-600 text-white py-1 px-4 rounded hover:bg-gray-700"

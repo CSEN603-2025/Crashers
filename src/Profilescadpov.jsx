@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import SCADSidebar from "./scadSide";
+import NavBar from "./navBar";
 
 const dummyStudents = [
   {
@@ -14,6 +15,13 @@ const dummyStudents = [
       { company: "TechNova", role: "Frontend Intern", duration: "3 months" },
     ],
     activities: ["Hackathon 2023", "Web Dev Club"],
+    companyEvaluation: {
+      company: "TechNova",
+      supervisor: "John Smith",
+      rating: 4.8,
+      feedback:
+        "Sara was an outstanding intern. She showed great initiative, communicated clearly, and delivered high-quality components on time.",
+    },
   },
   {
     id: 2,
@@ -26,6 +34,13 @@ const dummyStudents = [
       { company: "BrightLabs", role: "Marketing Intern", duration: "2 months" },
     ],
     activities: ["Marketing Society"],
+    companyEvaluation: {
+      company: "BrightLabs",
+      supervisor: "Lina Hassan",
+      rating: 4.5,
+      feedback:
+        "Omar demonstrated strong analytical skills and collaborated well with the team. He has a promising future in marketing.",
+    },
   },
   {
     id: 3,
@@ -38,6 +53,7 @@ const dummyStudents = [
     activities: ["UI/UX Workshop"],
   },
 ];
+
 
 function StudentProfileScad() {
   const { id } = useParams();
@@ -62,6 +78,7 @@ function StudentProfileScad() {
 
   return (
     <div className="flex">
+      <NavBar/>
       <SCADSidebar
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
@@ -126,6 +143,7 @@ function StudentProfileScad() {
               )}
             </ul>
           </div>
+              
 
           {/* Activities */}
           <div className="px-10 py-6 border-t border-green-100">

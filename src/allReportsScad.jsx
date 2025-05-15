@@ -18,6 +18,7 @@ const dummyReports = [
     supervisor: "John Doe",
     startDate: "2024-06-01",
     endDate: "2024-08-31",
+    studentEvaluation: "TechNova provided an excellent learning environment. I gained hands-on experience with React and felt well supported throughout the internship.",
   },
   {
     id: 2,
@@ -33,8 +34,10 @@ const dummyReports = [
     supervisor: "Jane Smith",
     startDate: "2024-07-01",
     endDate: "2024-09-15",
+    studentEvaluation: "The internship at Adwise helped me improve my analytical and presentation skills. I appreciated the collaborative work environment.",
   },
 ];
+
 
 const AllReports = () => {
   const [reports] = useState(dummyReports);
@@ -124,6 +127,8 @@ const AllReports = () => {
             >
               <div className="flex-1">
                 <h2 className="text-xl font-semibold text-green-700">{report.title}</h2>
+                <p className="text-sm text-gray-600 mt-1">Student: {report.student}</p>
+
                 <span
   className={`px-2 py-1 rounded-full text-xs font-semibold ${
     report.status === "accepted"
@@ -165,7 +170,7 @@ const AllReports = () => {
                   onClick={() => setSelectedReport(report)}
                   className="bg-gray-600 text-white py-2 px-4 rounded-md text-sm hover:bg-gray-700 transition"
                 >
-                  View Details
+                  View Evaluation 
                 </button>
               </div>
             </div>
@@ -190,6 +195,11 @@ const AllReports = () => {
                   <p><strong>Start Date:</strong> {selectedReport.startDate}</p>
                   <p><strong>End Date:</strong> {selectedReport.endDate}</p>
                   <p><strong>File:</strong> {selectedReport.fileName}</p>
+                  <p><strong>Student's Evaluation of the Company:</strong></p>
+<p className="text-gray-700 italic border-l-4 border-green-400 pl-4">
+  {selectedReport.studentEvaluation || "No evaluation submitted."}
+</p>
+
                 </div>
               </div>
               <div className="flex justify-end gap-4 mt-6">

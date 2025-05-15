@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "./navBar";
 import SlidingSidebarPro from "./slidingBarPro";
+ import { useNavigate } from "react-router-dom";
+ 
 
 const dummyAssessments = [
   { id: 1, title: "React Basics", description: "Covers hooks, props, and state." },
@@ -9,6 +11,8 @@ const dummyAssessments = [
 ];
 
 const OnlineAssessments = () => {
+        const navigate = useNavigate();
+    
 const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
 
@@ -32,8 +36,13 @@ const [sidebarWidth, setSidebarWidth] = useState("6rem");
   };
 
   const handlePostToProfile = () => {
-    setPostedToProfile(true);
-  };
+  const existing = JSON.parse(localStorage.getItem("assessments")) || [];
+  const updated = [...existing, { title: selectedAssessment.title, score }];
+  localStorage.setItem("assessments", JSON.stringify(updated));
+
+  setPostedToProfile(true);
+  navigate("/pro/studentProfile");
+ };
 
   return (
      <div className="flex">
