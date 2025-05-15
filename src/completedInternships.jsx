@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SlidingSidebar from "./SlidingSidebar";
+import { useLocation } from "react-router-dom";
 
 const CompletedInternships = () => {
+  const { state: internship } = useLocation(); // Get internship details from navigation state
   const [evaluation, setEvaluation] = useState({ comment: "", recommend: false });
   const [submittedEvaluation, setSubmittedEvaluation] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
+
+  // Generate a unique key for each internship
+  const internshipId = `evaluation_${internship.id}`;
+
+  // Load evaluation data from localStorage on mount
+  useEffect(() => {
+    const storedEvaluation = JSON.parse(localStorage.getItem(internshipId));
+    if (storedEvaluation) {
+      setEvaluation(storedEvaluation);
+      setSubmittedEvaluation(true);
+    }
+  }, [internshipId]);
 
   // Sliding sidebar hover effects
   const handleMouseEnter = () => {
@@ -26,16 +40,15 @@ const CompletedInternships = () => {
     });
   };
 
-  // Handle submission of the evaluation
+  // Handle submission of the evaluation and save it to localStorage
   const handleSubmitEvaluation = () => {
+    if (evaluation.comment.trim() === "") {
+      alert("Comment cannot be empty.");
+      return;
+    }
+    localStorage.setItem(internshipId, JSON.stringify(evaluation));
     setSubmittedEvaluation(true);
-    // Save the evaluation data if needed
-  };
-
-  // Handle deletion of the evaluation
-  const handleDeleteEvaluation = () => {
-    setEvaluation({ comment: "", recommend: false });
-    setSubmittedEvaluation(false);
+    alert("Evaluation submitted successfully. You can only submit once.");
   };
 
   return (
@@ -57,11 +70,24 @@ const CompletedInternships = () => {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
-        <h2 className="text-5xl font-semibold text-green-700 mb-6 text-center">Completed Internship Evaluation</h2>
+        <h2 className="text-5xl font-semibold text-green-700 mb-6 text-center">
+          {internship.company} - Internship Evaluation
+        </h2>
 
-        {/* Evaluation */}
+        {/* Internship Details */}
+        <div className="mb-8">
+          <p><strong>Role:</strong> {internship.role}</p>
+          <p><strong>Duration:</strong> {internship.duration}</p>
+          <p><strong>Industry:</strong> {internship.industry}</p>
+          <p><strong>Paid:</strong> {internship.paid ? "Yes" : "No"}</p>
+          <p><strong>Salary:</strong> {internship.salary}</p>
+        </div>
+
+        {/* Evaluation Form */}
         <div className="mt-8">
-          <h3 className="text-xl font-semibold text-green-700 mb-4">Evaluate the Internship</h3>
+          <h3 className="text-xl font-semibold text-green-700 mb-4">
+            Evaluate the Internship
+          </h3>
 
           <textarea
             name="comment"
@@ -92,12 +118,11 @@ const CompletedInternships = () => {
             {submittedEvaluation ? "Evaluation Submitted" : "Submit Evaluation"}
           </button>
 
-          <button
-            onClick={handleDeleteEvaluation}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 mb-4"
-          >
-            Delete Evaluation
-          </button>
+          {submittedEvaluation && (
+            <p className="text-sm text-gray-500">
+              * You have already submitted your evaluation for this internship.
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -105,4 +130,3 @@ const CompletedInternships = () => {
 };
 
 export default CompletedInternships;
-

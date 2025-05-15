@@ -36,7 +36,7 @@ import ViewInternships from './viewInternships';
 import CompaniesViewedMe from './profViews.jsx';
 import OnlineAssessments from './onlineAssessments.jsx';
 import NotificationsStudent from './notificationsStudent.jsx';
-
+import MyReports from './myReports.jsx';
 import VideoCall from './videoCall.jsx';
 import "./index.css";
 
@@ -52,8 +52,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/InternshipApplications" element={<InternshipApplications />} /> 
       <Route path="/allInternships" element={<AllInternships />} /> 
       <Route path="/completedInternships" element={<CompletedInternships />} /> 
-      <Route path="/view-internships" element={<ViewInternships />} /> 
-
+      <Route path="/view-internships" element={<ViewInternships />} />
+            <Route path="/myReports" element={<MyReports />} /> 
             <Route path="/" element={<LandingPage />} />
       <Route path="/profile" element={<CompanyProfile />} />
             <Route path="/workshopPro" element={<CareerWorkshopsPro />} />

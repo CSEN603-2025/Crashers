@@ -103,60 +103,64 @@ function StudentProfile() {
             <p><strong>Phone:</strong> {isEditable ? <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border p-1 rounded-md w-full" /> : phone}</p>
           </div>
         </div>
+{/* Job Interests */}
+<div className="px-10 py-6 border-b border-green-100 bg-green-50">
+  <h3 className="font-bold font-poppins text-gray-900 mb-3">Job Interests</h3>
 
-        {/* Job Interests */}
-        <div className="px-10 py-6 border-b border-green-100 bg-green-50">
-          <h3 className="font-bold font-poppins text-gray-900 mb-3">Job Interests</h3>
+  <ul className="space-y-2">
+    {jobInterests.map((interest, index) => (
+      <li key={index} className="text-gray-700">
+        {interest}
+      </li>
+    ))}
+  </ul>
 
-          <ul className="space-y-2">
-            {jobInterests.map((interest, index) => (
-              <li key={index} className="text-gray-700">
-                {interest}
-              </li>
-            ))}
-          </ul>
+  <div className="flex gap-4 mt-4">
+    <input
+      type="text"
+      value={newJobInterest}
+      onChange={(e) => setNewJobInterest(e.target.value)}
+      placeholder="Add new job interest"
+      className="flex-grow px-4 py-2 rounded-md border border-green-300"
+    />
+    <button
+      onClick={handleAddJobInterest}
+      className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+    >
+      Add Job Interest
+    </button>
+  </div>
+</div>
 
-          <input
-            type="text"
-            value={newJobInterest}
-            onChange={(e) => setNewJobInterest(e.target.value)}
-            placeholder="Add new job interest"
-            className="mt-4 px-4 py-2 rounded-md border border-green-300 w-full"
-          />
-          <button
-            onClick={handleAddJobInterest}
-            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
-          >
-            Add Job Interest
-          </button>
-        </div>
+{/* College Activities */}
+<div className="px-10 py-6 bg-green-50">
+  <h3 className="font-bold font-poppins text-gray-900 mb-3">College Activities</h3>
 
-        {/* College Activities */}
-        <div className="px-10 py-6 bg-green-50">
-          <h3 className="font-bold font-poppins text-gray-900 mb-3">College Activities</h3>
+  <ul className="space-y-2">
+    {activities.map((activity, index) => (
+      <li key={index} className="text-gray-700">
+        {activity}
+      </li>
+    ))}
+  </ul>
 
-          <ul className="space-y-2">
-            {activities.map((activity, index) => (
-              <li key={index} className="text-gray-700">
-                {activity}
-              </li>
-            ))}
-          </ul>
+  <div className="flex gap-4 mt-4">
+    <input
+      type="text"
+      value={newActivity}
+      onChange={(e) => setNewActivity(e.target.value)}
+      placeholder="Add new activity"
+      className="flex-grow px-4 py-2 rounded-md border border-green-300"
+    />
+    <button
+      onClick={handleAddActivity}
+      className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+    >
+      Add Activity
+    </button>
+  </div>
+</div>
 
-          <input
-            type="text"
-            value={newActivity}
-            onChange={(e) => setNewActivity(e.target.value)}
-            placeholder="Add new activity"
-            className="mt-4 px-4 py-2 rounded-md border border-green-300 w-full"
-          />
-          <button
-            onClick={handleAddActivity}
-            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
-          >
-            Add Activity
-          </button>
-        </div>
       </div>
 
       <SlidingSidebar

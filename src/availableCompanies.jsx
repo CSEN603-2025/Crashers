@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SlidingSidebar from './SlidingSidebar';  
-import NavBar from './navBar'; 
+import SlidingSidebar from './SlidingSidebar';
+import NavBar from './navBar';
 
 const AvailableCompanies = () => {
   const navigate = useNavigate();
@@ -144,6 +144,8 @@ const AvailableCompanies = () => {
     },
   ]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const handleViewInternships = (company) => {
     navigate('/view-internships', { state: company });
   };
@@ -162,42 +164,62 @@ const AvailableCompanies = () => {
     setIsHovered(false);
   };
 
+  // Filter companies based on searchTerm (case-insensitive)
+  const filteredCompanies = companies.filter((company) =>
+    company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    company.industry.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="w-screen min-h-screen bg-gray-100 flex">
       <NavBar />
-      <div className="w-full pt-32">
-        <h2 className="text-5xl font-semibold text-green-700 mb-12 text-center">
-          Available Companies
+      <div className="w-full pt-32 px-4">
+        <h2 className="text-5xl font-semibold text-green-700 mb-6 text-center">
+          Suggested Companies
         </h2>
+
+        {/* Search input */}
+        <div className="max-w-4xl mx-auto mb-10">
+          <input
+            type="text"
+            placeholder="Search by company name or industry..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
+        </div>
+
         <div className="max-w-4xl mx-auto">
-          {companies.map((company, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6"
-            >
-              <div className="flex">
-                <div className="w-2 bg-green-600 rounded-l-lg"></div>
-
-                <div className="w-full p-6">
-                  <h3 className="text-2xl font-semibold text-green-700 mb-2">{company.name}</h3>
-                  <p className="text-gray-600 text-lg mb-4">{company.industry}</p>
-
-                  <button
-                    onClick={() => handleViewInternships(company)}
-                    className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"
-                  >
-                    View Internships
-                  </button>
+          {filteredCompanies.length > 0 ? (
+            filteredCompanies.map((company, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6"
+              >
+                <div className="flex">
+                  <div className="w-2 bg-green-600 rounded-l-lg"></div>
+                  <div className="w-full p-6">
+                    <h3 className="text-2xl font-semibold text-green-700 mb-2">{company.name}</h3>
+                    <p className="text-gray-600 text-lg mb-4">{company.industry}</p>
+                    <button
+                      onClick={() => handleViewInternships(company)}
+                      className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"
+                    >
+                      View Internships
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No companies match your search.</p>
+          )}
         </div>
       </div>
 
       {/* Sliding Sidebar */}
       <SlidingSidebar
-        setShowProfile={() => {}}
+        setShowProfile={() => { }}
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
         handleMouseEnter={handleMouseEnter}
