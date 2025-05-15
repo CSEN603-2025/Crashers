@@ -9,7 +9,7 @@ const applicantsData = [
     id: 1,
     name: "Sara Ali",
     internship: "Frontend Developer Internship",
-    status: "current intern",
+    status: "Accepted",
     email: "sara@example.com",
     phone: "0123456789",
     details: "Sara is proficient in React and TailwindCSS.",
@@ -33,7 +33,7 @@ const applicantsData = [
     id: 3,
     name: "Malak Soliman",
     internship: "Marketing Internship",
-    status: "current intern",
+    status: "Accepted",
     email: "malak@example.com",
     phone: "0112233445",
     details: "Malak has experience with Social Media managing and PR.",
@@ -73,7 +73,10 @@ export default function CurrentInterns() {
     return internshipMatch && statusMatch && searchMatch;
   });
   const handleComplete = (id) => {
-    updateStatus(id, "internship complete");
+    updateStatus(id, "Internship complete");
+  };
+   const handleCurrent = (id) => {
+    updateStatus(id, "Current Intern");
   };
 
   const [showProfile, setShowProfile] = useState(false);
@@ -172,6 +175,14 @@ const handleDeleteEvaluation = () => {
 
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-700">{app.status}</span>
+              {app.status !== "current intern" && (
+                <button
+                  onClick={() => handleCurrent(app.id)}
+                  className="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600"
+                >
+                  ✅ Current Intern
+                </button>
+              )}
               {app.status !== "internship complete" && (
                 <button
                   onClick={() => handleComplete(app.id)}
@@ -194,7 +205,7 @@ const handleDeleteEvaluation = () => {
       <p><strong>Phone:</strong> {selectedApplicant.phone}</p>
       <p><strong>Details:</strong> {selectedApplicant.details}</p>
 
-      {selectedApplicant.status === "internship complete" && (
+      {selectedApplicant.status === "Internship complete" && (
         <div className="mt-4">
                           <label className="font-bold text-sm text-primary font-poppins">Evaluation:</label>
 
@@ -225,7 +236,7 @@ const handleDeleteEvaluation = () => {
                 setEvaluationText("");
                 setShowEvaluationModal(true);
               }}
-              className="mt-4 bg-green-600 text-white px-4 py-2 text-poppins text-semibold rounded hover:bg-green-700 transition"
+              className="mt-4 ml-4 bg-green-600 text-white px-4 py-2 text-poppins text-semibold rounded hover:bg-green-700 transition"
             >
               Write an Evaluation
             </button>

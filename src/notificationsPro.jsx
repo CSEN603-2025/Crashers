@@ -205,7 +205,7 @@ export default function NotificationBell() {
                     <div className="mt-2 flex space-x-2">
                       <button
                         onClick={() => navigate("/videoCall")}
-                        className="px-3 py-1 text-sm bg-green-600 text-white rounded-md hover:bg-green-700"
+                        className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-700"
                       >
                         Accept
                       </button>

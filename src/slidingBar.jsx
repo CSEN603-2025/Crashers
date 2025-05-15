@@ -29,9 +29,10 @@ const SlidingSidebar = ({ setShowProfile, sidebarWidth, isHovered, handleMouseEn
   {isHovered && "Your Listings"}
 </button>
 
-        <button className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1">
+        <button onClick={() => navigate("/applicants")}
+        className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1">
           <Clipboard className="inline-block mr-2" />
-          {isHovered && "All Jobs"}
+          {isHovered && "All Applications"}
         </button>
                 <button   onClick={() => navigate("/currentInterns")}
                 className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1">

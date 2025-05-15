@@ -134,10 +134,6 @@ const [toastMessage, setToastMessage] = useState("");
         </h1>
 <div className="flex justify-between items-center mb-6 mt-6">
         <PostInternshipButton/>
-        <button onClick={() => navigate("/applicants")} 
-        className="bg-green-600 mr-6 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-green-700 transition-colors">
-                     View All Applications
-                    </button>
                     </div>
         <div className="flex justify-between items-center mb-6">
           <input

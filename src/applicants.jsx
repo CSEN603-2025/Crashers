@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SlidingSidebar from "./slidingBar";
 import NavBar from "./navBar";
+import cv from "./Assets/CV.pdf";
 import AcceptedApplicantsModal from "./AcceptedApplicantsModal"; // You'll create this
 
 
@@ -16,7 +17,9 @@ const applicants = [
     details: "Sara is proficient in React and TailwindCSS.",
     appliedOn: "2025-05-01",
     startDate: "2025-07-15",
-    endDate: "2025-10-01"
+    endDate: "2025-10-01",
+    cvFile: cv  // <-- hardcoded CV file here
+
   },
   {
     id: 2,
@@ -28,7 +31,9 @@ const applicants = [
     details: "Ahmed has experience with Node.js and MongoDB.",
     appliedOn: "2025-05-03",
     startDate: "2025-07-15",
-    endDate: "2025-09-05"
+    endDate: "2025-09-05",
+    cvFile: cv // <-- hardcoded CV file here
+
   },
    {
     id: 3,
@@ -40,7 +45,9 @@ const applicants = [
     details: "Malak has experience with Social Media managing and PR.",
     appliedOn: "2025-08-13",
     startDate: "2025-08-15",
-    endDate: "2025-09-15"
+    endDate: "2025-09-15",
+    cvFile: cv  // <-- hardcoded CV file here
+
 
 
   },
@@ -92,24 +99,12 @@ export default function Applicants() {
       setIsHovered(false);
     };
 
+
   return (
     <div className="bg-gray-100 w-screen mt-20  min-h-screen py-12 px-6">
         <NavBar/>
         <div className="flex justify-end mr-32">
-        <button  onClick={() => setShowAcceptedModal(true)}
-        className="bg-green-600  text-sm text-white font-semibold font-poppins py-2 px-3 rounded-md shadow-md hover:bg-green-700 transition-colors">
-                     View Accepted Applications
-                    </button>
-                    {showAcceptedModal && (
-        <AcceptedApplicantsModal
-          applicants={allApplicants}
-          onClose={() => setShowAcceptedModal(false)}
-          onStatusUpdate={(id, newStatus) => {
-            setAllApplicants((prev) =>
-              prev.map((app) =>
-                app.id === id ? { ...app, status: newStatus } : app
-              )
-            );}} />)}
+        
     </div>
       {/* Filter Dropdown */}
       <div className="mb-6 text-right mr-32">
@@ -172,30 +167,26 @@ export default function Applicants() {
             <p><strong>Phone:</strong> {selectedApplicant.phone}</p>
             <p><strong>Details:</strong> {selectedApplicant.details}</p>
 
-            {/* Status Update */}
-            <div className="mt-4">
-              <label className="font-medium text-green-700 mr-2">Status: </label>
-              <select
-                value={selectedApplicant.status}
-                onChange={(e) => updateStatus(selectedApplicant.id, e.target.value)}
-                className="px-3 py-2 rounded border border-green-300 bg-white shadow-sm"
-              >
-                {statusOptions.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button
-              className="bg-green-600 text-white px-4 py-2 rounded mt-4 hover:bg-green-700 transition-colors"
-              onClick={() => setSelectedApplicant(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+           {/* New Buttons */}
+<div className="flex gap-4 mt-4">
+  <a
+    href={selectedApplicant.cvFile}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+  >
+    View CV
+  </a>
+
+  <a
+    href={selectedApplicant.cvFile}
+    download
+    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+  >
+    Download CV
+  </a>
+</div>
+
        <SlidingSidebar
         setShowProfile={setShowProfile}
         sidebarWidth={sidebarWidth}
