@@ -1,14 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 import { Link, useLocation } from "react-router-dom";
 import scad from "./Assets/logo.png";
-import {
-  ArrowRight,
-  Home,
-  Bell,
-  User,
-  ChevronRight,
-  BadgeCheck,
-} from "lucide-react";
+import { ArrowRight, Home, Bell, User, ChevronRight, BadgeCheck } from "lucide-react";
 import NotificationBell from "./notificationsPro";
 
 function NavBar() {
@@ -19,16 +12,22 @@ function NavBar() {
   const isBaseRoute = location.pathname === "/";
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (window.scrollY > 50) setScrolling(true);
       else setScrolling(false);
-    });
+    };
 
+    window.addEventListener("scroll", handleScroll);
+
+    // Load role from localStorage
     const storedRole = localStorage.getItem("role");
     if (storedRole) setRole(storedRole);
 
-    return () => window.removeEventListener("scroll", () => {});
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Determine profile link based on role
+  const profileLink = role === "pro" ? "/pro/studentProfile" : "/studentProfile";
 
   return (
     <nav
@@ -45,22 +44,19 @@ function NavBar() {
         <div className="flex items-center gap-10 hover:text-white-500">
           {!isBaseRoute && (
             <div className="flex items-center gap-6 px-[40px]">
-              {/* Only show Home icon if role is 'company' */}
-              {role === "company" && (
-                <Link to="/" className="transition-transform hover:scale-105">
-                  <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
-                    <Home className="w-6 h-6 text-white" />
-                  </div>
-                </Link>
-              )}
+              <Link to="/" className="transition-transform hover:scale-105">
+                <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
+                  <Home className="w-6 h-6 text-white" />
+                </div>
+              </Link>
 
-              <NotificationBell />
+              {/* NotificationBell icon container adjusted to match profile icon size */}
+              <div className="w-12 h-12 flex items-center justify-center">
+                <NotificationBell />
+              </div>
 
               <div className="flex items-center gap-2">
-                <Link
-                  to="/studentProfile"
-                  className="transition-transform hover:scale-105 relative"
-                >
+                <Link to={profileLink} className="transition-transform hover:scale-105 relative">
                   <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
                     <User className="w-6 h-6 text-white" />
                   </div>

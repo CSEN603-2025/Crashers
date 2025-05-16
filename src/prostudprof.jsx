@@ -3,8 +3,6 @@ import SlidingSidebarPro from "./slidingBarPro";
 import NavBar from "./navBar";
 import myProfileImage from './assets/myProfile.png';
 import { Edit2, Save } from "lucide-react";
-import { useLocation } from "react-router-dom";
-
 
 const majors = ["Computer Science", "Information Systems", "Software Engineering", "Cyber Security"];
 const semesters = Array.from({ length: 8 }, (_, i) => `Semester ${i + 1}`);
@@ -15,25 +13,16 @@ function ProStudentProfile() {
   const [isHovered, setIsHovered] = useState(false);
 
   // Profile States with LocalStorage persistence
-  const [selectedMajor, setSelectedMajor] = useState(localStorage.getItem("selectedMajor") || "");
-  const [selectedSemester, setSelectedSemester] = useState(localStorage.getItem("selectedSemester") || "");
-  const [jobInterests, setJobInterests] = useState(JSON.parse(localStorage.getItem("jobInterests")) || []);
+  const [selectedMajor, setSelectedMajor] = useState(localStorage.getItem("proSelectedMajor") || "");
+  const [selectedSemester, setSelectedSemester] = useState(localStorage.getItem("proSelectedSemester") || "");
+  const [jobInterests, setJobInterests] = useState(JSON.parse(localStorage.getItem("proJobInterests")) || []);
   const [newJobInterest, setNewJobInterest] = useState("");
-  const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [phone, setPhone] = useState(localStorage.getItem("phone") || "");
-  const [name, setName] = useState(localStorage.getItem("name") || "");
-  const [activities, setActivities] = useState(JSON.parse(localStorage.getItem("activities")) || []);
+  const [email, setEmail] = useState("jana@gmail.com");
+  const [phone, setPhone] = useState("01154016603");
+  const [name, setName] = useState("Jana Nazeer");
+  const [activities, setActivities] = useState(JSON.parse(localStorage.getItem("proActivities")) || []);
   const [newActivity, setNewActivity] = useState("");
-    const [assessments, setAssessments] = useState(JSON.parse(localStorage.getItem("assessments")) || []);
-
   const [isEditable, setIsEditable] = useState(false);
-  // Extract query params (e.g., ?assessmentPosted=true)
-const location = useLocation();
-const queryParams = new URLSearchParams(location.search);
-const assessmentPosted = queryParams.get("assessmentPosted") === "true";
-const [assessmentScore] = useState(localStorage.getItem("assessmentScore") || "88");
-const [assessmentName] = useState(localStorage.getItem("assessmentName") || "88");
-
 
   // Sidebar hover effects
   const handleMouseEnter = () => {
@@ -48,60 +37,41 @@ const [assessmentName] = useState(localStorage.getItem("assessmentName") || "88"
 
   // Persist data to localStorage on change
   useEffect(() => {
-    localStorage.setItem("selectedMajor", selectedMajor);
-    localStorage.setItem("selectedSemester", selectedSemester);
-    localStorage.setItem("jobInterests", JSON.stringify(jobInterests));
-    localStorage.setItem("activities", JSON.stringify(activities));
-    localStorage.setItem("email", email);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("name", name);
-  }, [selectedMajor, selectedSemester, jobInterests, activities, email, phone, name]);
-
-  useEffect(() => {
-  localStorage.setItem("assessments", JSON.stringify(assessments));
-}, [assessments]);
-
+    localStorage.setItem("proSelectedMajor", selectedMajor);
+    localStorage.setItem("proSelectedSemester", selectedSemester);
+    localStorage.setItem("proJobInterests", JSON.stringify(jobInterests));
+    localStorage.setItem("proActivities", JSON.stringify(activities));
+  }, [selectedMajor, selectedSemester, jobInterests, activities]);
 
   // Toggle Edit Mode
   const toggleEditMode = () => {
-    if (isEditable) {
-      localStorage.setItem("name", name);
-      localStorage.setItem("email", email);
-      localStorage.setItem("phone", phone);
-    }
     setIsEditable(!isEditable);
   };
 
-  // Handle adding a new job interest
+  // Add Job Interest
   const handleAddJobInterest = () => {
     if (newJobInterest.trim()) {
-      const updatedInterests = [...jobInterests, newJobInterest];
-      setJobInterests(updatedInterests);
+      setJobInterests([...jobInterests, newJobInterest.trim()]);
       setNewJobInterest("");
     }
   };
 
-  // Handle adding a new activity
+  // Add Activity
   const handleAddActivity = () => {
     if (newActivity.trim()) {
-      const updatedActivities = [...activities, newActivity];
-      setActivities(updatedActivities);
+      setActivities([...activities, newActivity.trim()]);
       setNewActivity("");
     }
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gray-100 flex justify-center items-start pt-40 px-4 overflow-y-auto">
+    <div className="min-h-screen w-screen bg-gray-100 flex justify-center items-start pt-24 overflow-y-auto">
       <NavBar />
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl border border-green-200">
-        
-        {/* Header Section */}
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl border border-green-200 mt-5">
+        {/* Header */}
         <div className="flex flex-col items-center text-center px-10 py-8 border-b border-green-100">
           <img src={myProfileImage} alt="Profile" className="w-16 h-16 rounded-full" />
-          <h2 className="text-3xl font-bold text-green-800 mt-4">Student Profile</h2>
-          <p className="text-green-600 text-sm font-poppins font-semibold mt-1">
-            Your personalized internship and career hub
-          </p>
+          <h2 className="text-3xl font-bold text-green-800 mt-4">Pro Student Profile</h2>
         </div>
 
         {/* Personal Information */}
@@ -124,77 +94,80 @@ const [assessmentName] = useState(localStorage.getItem("assessmentName") || "88"
           <div className="mb-4">
             <p><strong>Phone:</strong> {isEditable ? <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border p-1 rounded-md w-full" /> : phone}</p>
           </div>
+
+          <div className="mb-4">
+            <p><strong>Major:</strong> {isEditable ? (
+              <select value={selectedMajor} onChange={(e) => setSelectedMajor(e.target.value)} className="border p-1 rounded-md w-full">
+                <option value="">Select Major</option>
+                {majors.map((major) => <option key={major} value={major}>{major}</option>)}
+              </select>
+            ) : selectedMajor}
+            </p>
+          </div>
+
+          <div className="mb-4">
+            <p><strong>Semester:</strong> {isEditable ? (
+              <select value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)} className="border p-1 rounded-md w-full">
+                <option value="">Select Semester</option>
+                {semesters.map((semester) => <option key={semester} value={semester}>{semester}</option>)}
+              </select>
+            ) : selectedSemester}
+            </p>
+          </div>
         </div>
 
         {/* Job Interests */}
         <div className="px-10 py-6 border-b border-green-100 bg-green-50">
           <h3 className="font-bold font-poppins text-gray-900 mb-3">Job Interests</h3>
-
           <ul className="space-y-2">
-            {jobInterests.map((interest, index) => (
-              <li key={index} className="text-gray-700">
-                {interest}
-              </li>
+            {jobInterests.map((interest, idx) => (
+              <li key={idx} className="text-gray-700">{interest}</li>
             ))}
           </ul>
-
-          <input
-            type="text"
-            value={newJobInterest}
-            onChange={(e) => setNewJobInterest(e.target.value)}
-            placeholder="Add new job interest"
-            className="mt-4 px-4 py-2 rounded-md border border-green-300 w-full"
-          />
-          <button
-            onClick={handleAddJobInterest}
-            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
-          >
-            Add Job Interest
-          </button>
+          <div className="flex gap-4 mt-4">
+            <input
+              type="text"
+              value={newJobInterest}
+              onChange={(e) => setNewJobInterest(e.target.value)}
+              placeholder="Add new job interest"
+              className="flex-grow px-4 py-2 rounded-md border border-green-300"
+            />
+            <button
+              onClick={handleAddJobInterest}
+              className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+            >
+              Add Job Interest
+            </button>
+          </div>
         </div>
 
         {/* College Activities */}
-        <div className="px-10 py-6 border-b border-green-100 bg-green-50">
+        <div className="px-10 py-6 bg-green-50">
           <h3 className="font-bold font-poppins text-gray-900 mb-3">College Activities</h3>
-          
           <ul className="space-y-2">
-            {activities.map((activity, index) => (
-              <li key={index} className="text-gray-700">
-                {activity}
-              </li>
+            {activities.map((activity, idx) => (
+              <li key={idx} className="text-gray-700">{activity}</li>
             ))}
           </ul>
-
-          <input
-            type="text"
-            value={newActivity}
-            onChange={(e) => setNewActivity(e.target.value)}
-            placeholder="Add new activity"
-            className="mt-4 px-4 py-2 rounded-md border border-green-300 w-full"
-          />
-          <button
-            onClick={handleAddActivity}
-            className="bg-green-600 text-white px-8 py-2 rounded-md mt-2 hover:bg-green-700 transition-colors"
-          >
-            Add Activity
-          </button>
-        </div>
-            {assessments.length > 0 && (
-          <div className="px-10 py-6 bg-green-50">
-            <h3 className="font-bold text-gray-900 mb-3">Online Assessments</h3>
-            <ul className="space-y-1 text-gray-700">
-              {assessments.map((a, i) => (
-                <li key={i}>• {a.title}: <span className="font-semibold">{a.score}/100</span></li>
-              ))}
-            </ul>
+          <div className="flex gap-4 mt-4">
+            <input
+              type="text"
+              value={newActivity}
+              onChange={(e) => setNewActivity(e.target.value)}
+              placeholder="Add new activity"
+              className="flex-grow px-4 py-2 rounded-md border border-green-300"
+            />
+            <button
+              onClick={handleAddActivity}
+              className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+            >
+              Add Activity
+            </button>
           </div>
-        )}
-
-
-
-
+        </div>
       </div>
-        <SlidingSidebarPro
+      
+      <SlidingSidebarPro
         sidebarWidth={sidebarWidth}
         isHovered={isHovered}
         handleMouseEnter={handleMouseEnter}

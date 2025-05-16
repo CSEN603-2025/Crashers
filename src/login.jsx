@@ -8,7 +8,7 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email === 'test@example.com') {
+    if (email === 'lubna@gmail.com') {
     localStorage.setItem("role", "student");
     navigate('/availableCompanies');
     } 
@@ -16,15 +16,15 @@ function LoginPage() {
     localStorage.setItem("role", "company");
 navigate('/company');}
    
-   else if (email === 'pro@gmail.com') {
+   else if (email === 'jana@gmail.com') {
     localStorage.setItem("role", "pro");
 
-      navigate('/studentHome');
+      navigate('/availableCompanies');
     } 
     else if (email === 'scad@example.com') {
     localStorage.setItem("role", "scad");
 
-      navigate('/studentHome');
+      navigate('/scad');
     } 
      else if (email === 'faculty@example.com') {
       localStorage.setItem("role", "faculty");
