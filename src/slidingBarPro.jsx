@@ -59,11 +59,11 @@ const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMous
   {isHovered && "Online Assessments"}
 </button>
 
-       <div className="relative group w-full flex items-center justify-center mt-2">
+       {/* <div className="relative group w-full flex items-center justify-center mt-2">
   <div className="flex items-center gap-1 bg-yellow-400 text-white font-bold ml-6 font-poppins text-xs px-3 py-2 rounded-full shadow-md">
     <BadgeCheck className="w-4 h-4 mr-1" />
  PRO
-  </div>
+  </div> */}
  <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs p-2 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
   You’ve completed 3 months of internship!
 </div>
@@ -71,7 +71,7 @@ const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMous
 </div>
 
       </div>
-    </div>
+   
   );
 };
 

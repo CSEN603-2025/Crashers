@@ -31,10 +31,18 @@ const SCADSidebar = ({sidebarWidth, isHovered, handleMouseEnter, handleMouseLeav
 </button>
 <button
   onClick={() => navigate("/scad/companies")}
-  className="text-left  w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+  className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
 >
-  <Building2   className="inline-block mr-2  " />
+  <Building2   className="inline-block mr-2" />
   {isHovered && "Applying Companies"}
+</button>
+
+<button
+  onClick={() => navigate("/scad/availcompanies")}
+  className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+>
+  <Building2   className="inline-block mr-2" />
+  {isHovered && "Available Companies"}
 </button>
 
 <button

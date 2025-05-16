@@ -1,111 +1,96 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // use this if you're using react-router
-import scad from "./Assets/logo.png"; 
-import { ArrowRight, Home } from "lucide-react";
-import { ChevronRight,Bell,User,House } from "lucide-react";
-
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react"; 
+import { Link, useLocation } from "react-router-dom";
+import scad from "./Assets/logo.png";
+import { ArrowRight, Home, Bell, User, ChevronRight, BadgeCheck } from "lucide-react";
 import NotificationBell from "./notificationsPro";
 
-
 function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
   const [scrolling, setScrolling] = useState(false);
+  const [role, setRole] = useState(null);
+
   const isBaseRoute = location.pathname === "/";
-  const role = localStorage.getItem("role");
-
-const getNotificationPath = () => {
-  if (role === "company") return "/notificationsCompany";
-  if (role === "pro") return "/notificationsPro";
-  if (role === "student") return "/notificationsStudent";
-  if (role === "scad") return "/notificationsScad";
-
-
-  return "/notifications"; // default
-};
-
-const getProfilePath = () => {
-  if (role === "company") return "/profile";
-  if (role === "proStudent") return "/pro/studentProfile";
-  if (role === "student") return "/studentProfile";
-
-  return "/studentProfile"; // default
-};
-
-  // Function to handle scroll
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setScrolling(true); // Start fading when scrolled down 50px
-    } else {
-      setScrolling(false); // Reset opacity when on top
-    }
-  };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) setScrolling(true);
+      else setScrolling(false);
+    });
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    // Load role from localStorage
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) setRole(storedRole);
+
+    return () => window.removeEventListener("scroll", () => {});
   }, []);
 
-
   return (
-    <nav className={` flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500 ${
+    <nav
+      className={`flex w-full fixed top-0 left-0 right-0 z-10 transition-opacity duration-500 ${
         scrolling ? "opacity-70" : "opacity-100"
       } bg-white border-b`}
     >
       <div className="container flex h-24 items-center justify-between px-2 md:px-6 ml-20">
-        <Link to="/" >
-          <img
-            src={scad}
-            alt="SCAD Logo"
-            className="w-30 h-40"
-
-          />
+        <Link to="/">
+          <img src={scad} alt="SCAD Logo" className="w-30 h-40" />
         </Link>
 
         {/* Links Container */}
-        <div className="flex items-center gap-20 hover:text-white-500">
-  
-{ !isBaseRoute&& <div className="flex items-center gap-6 px-[40px]">
-    <Link to="/" className="transition-transform hover:scale-105">
-    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-      <Home className="w-6 h-6 text-white" />
-    </div>
-  </Link>
-  {/* Notifications Icon in Green Circle */}
-  {/* <Link to={getNotificationPath()} className="transition-transform hover:scale-105">
-    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-      <Bell className="w-6 h-6 text-white" />
-    </div>
-  </Link> */}
-  <NotificationBell/>
+        <div className="flex items-center gap-10 hover:text-white-500">
+          {!isBaseRoute && (
+            <div className="flex items-center gap-6 px-[40px]">
+              <Link to="/" className="transition-transform hover:scale-105">
+                <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
+                  <Home className="w-6 h-6 text-white" />
+                </div>
+              </Link>
 
-  {/* Profile Icon in Green Circle */}
-  <Link to={getProfilePath()} className="transition-transform hover:scale-105">
-    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-      <User className="w-6 h-6 text-white" />
-    </div>
-  </Link>
-</div>}
+              <NotificationBell/>
 
+              <div className="flex items-center gap-2">
+                <Link to="/studentProfile" className="transition-transform hover:scale-105 relative">
+                  <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                </Link>
 
-{!isBaseRoute&&<Link
-      to="/"
-      className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
-    >
-      Log Out
-      <ChevronRight className="w-4 h-5 stroke-[10]" /> 
-    </Link>}
-    {isBaseRoute&&<Link
-      to="/login"
-      className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
-    >
-      Log in
-      <ChevronRight className="w-4 h-5 stroke-[10]" /> 
-    </Link>}
+                {/* Show PRO badge if role === 'pro' */}
+                {role === "pro" && (
+                  <div className="relative group flex items-center">
+                    <div className="flex items-center gap-1 bg-yellow-400 text-white font-bold font-poppins text-xs px-3 py-2 rounded-full shadow-md">
+                      <BadgeCheck className="w-4 h-4 mr-1" />
+                      PRO
+                    </div>
 
+                    {/* Tooltip */}
+                    <span className="absolute top-[50px] left-0 w-max opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs px-2 py-1 rounded-md shadow-lg">
+                      You have completed 3 months!
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {!isBaseRoute && (
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
+            >
+              Log Out
+              <ChevronRight className="w-4 h-5 stroke-[10]" />
+            </Link>
+          )}
+
+          {isBaseRoute && (
+            <Link
+              to="/login"
+              className="flex items-center gap-1 text-primary font-poppins font-bold text-lg leading-[140%] hover:text-green-700 px-[40px] transition-colors"
+            >
+              Log in
+              <ChevronRight className="w-4 h-5 stroke-[10]" />
+            </Link>
+          )}
         </div>
       </div>
     </nav>

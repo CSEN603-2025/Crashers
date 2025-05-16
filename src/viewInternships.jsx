@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SlidingSidebar from "./SlidingSidebar";
+import NavBar from "./navBar";
 
 const ViewInternships = () => {
   const { state: company } = useLocation();
@@ -66,8 +67,9 @@ const ViewInternships = () => {
   ];
 
   return (
-    <div className="w-screen min-h-screen bg-gray-100 text-gray-800 font-sans">
-      <div className="max-w-full mx-auto py-16 px-6 sm:px-8 h-full">
+    <div className="w-screen  min-h-screen bg-gray-100 text-gray-800 font-sans">
+        <NavBar/>
+      <div className="max-w-full pt-32 mx-auto py-16 px-6 sm:px-8 h-full">
         <h1 className="font-poppins text-4xl font-bold text-green-800 text-center mb-10">
           {company.name} - Available Internships
         </h1>

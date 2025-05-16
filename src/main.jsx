@@ -51,7 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="selection" element={<Selection />} /> 
       <Route path="/InternshipApplications" element={<InternshipApplications />} /> 
       <Route path="/allInternships" element={<AllInternships />} /> 
-      <Route path="/completedInternships" element={<CompletedInternships />} /> 
+      <Route path="/completedInternships/internshipsId" element={<CompletedInternships />} /> 
       <Route path="/view-internships" element={<ViewInternships />} />
             <Route path="/myReports" element={<MyReports />} /> 
             <Route path="/" element={<LandingPage />} />
@@ -82,6 +82,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/scad/stats/report" element={<SCADReportPage />} />
         <Route path="/pro/profviews" element={<CompaniesViewedMe />} />
         <Route path="/pro/onlineassessments" element={<OnlineAssessments />} />
+        <Route path="/scad/availcompanies" element={<AvailableCompanies />} />
 
 
     </Routes>
