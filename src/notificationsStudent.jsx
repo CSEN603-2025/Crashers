@@ -6,46 +6,74 @@ import { useNavigate } from "react-router-dom";
 const notificationsData = [
   {
     id: 1,
-    sender: "Scad",
+    sender: "SCAD",
     title: "New Internship Cycle Started",
     date: "2025-06-01",
     isRead: false,
     type: "Cycle",
     details: {
       name: "Internship Cycle Notification",
-      description: "A new internship cycle has just started. Check available opportunities now!",
+      description:
+        "A new internship cycle has just started. Check available opportunities now!",
     },
   },
   {
     id: 2,
-    sender: "Scad",
+    sender: "SCAD",
+    title: "Upcoming Internship Cycle",
+    date: "2025-05-25",
+    isRead: false,
+    type: "Cycle",
+    details: {
+      name: "Internship Cycle Reminder",
+      description:
+        "The next internship cycle is about to begin. Prepare your applications!",
+    },
+  },
+  {
+    id: 3,
+    sender: "SCAD",
     title: "Internship Report Flagged",
     date: "2025-05-13",
     isRead: false,
     type: "ReportStatus",
     details: {
-      name: "Report Review Update",
+      name: "Report Status Update",
       description: "Your internship report has been flagged for review.",
       status: "flagged",
     },
   },
   {
-    id: 3,
-    sender: "Scad",
+    id: 4,
+    sender: "SCAD",
     title: "Internship Report Accepted",
     date: "2025-05-13",
     isRead: false,
     type: "ReportStatus",
     details: {
-      name: "Report Review Update",
+      name: "Report Status Update",
       description: "Congratulations! Your internship report has been accepted.",
       status: "accepted",
+    },
+  },
+ 
+  {
+    id: 5,
+    sender: "SCAD",
+    title: "Internship Report Rejected",
+    date: "2025-05-13",
+    isRead: false,
+    type: "ReportStatus",
+    details: {
+      name: "Report Status Update",
+      description: "Unfortunately, your internship report has been rejected.",
+      status: "rejected",
     },
   },
 ];
 
 
-export default function NotificationStudent() {
+export default function NotificationsStudent() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef();
   const handleReject = (id) => {

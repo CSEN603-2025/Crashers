@@ -1,10 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import html2pdf from "html2pdf.js";
-import SCADSidebar from "./scadSide";
+import RenderSidebar from "./whichSideBar";
 import NavBar from "./navBar";
 
 
 const SCADStatsReport = () => {
+  const [role, setRole] = useState(null); // State for role
+      useEffect(() => {
+        const storedRole = localStorage.getItem('role');
+        setRole(storedRole);
+      }, []);
   const reportRef = useRef();
 
   const handleDownload = () => {
@@ -37,12 +42,15 @@ const SCADStatsReport = () => {
   return (
      <div className="flex">
       <NavBar/>
-      <SCADSidebar
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+      {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
     <div className="w-screen mt-24 bg-gray-100 min-h-screen p-10 text-gray-800 font-sans">
       <div className="max-w-3xl mx-auto bg-white shadow-md p-8 rounded-lg">
         <div ref={reportRef}>

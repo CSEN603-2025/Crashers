@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import RenderSidebar from "./whichSideBar"; 
-import NavBar from "./navBar"; // Importing the NavBar
+import RenderSidebar from "./whichSideBar";
+import NavBar from "./navBar";
 
 function Selection() {
   const location = useLocation();
   const navigate = useNavigate();
   const internship = location.state;
-  const [role, setRole] = useState(null); 
-     useEffect(() => {
-        const storedRole = localStorage.getItem('role');
-        setRole(storedRole);
-      }, []);
+  const [role, setRole] = useState(null);
 
-  console.log("Internship data received:", internship); // Debugging
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole);
+  }, []);
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
 
-  // Handle file selection
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles((prev) => [...prev, ...files]);
   };
 
-  // Handle file removal from the list
   const handleRemoveFile = (index) => {
     const updatedFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(updatedFiles);
   };
 
-  // Handle document upload
   const handleUpload = () => {
     if (selectedFiles.length > 0) {
       alert("Documents uploaded successfully.");
@@ -41,7 +37,6 @@ function Selection() {
     }
   };
 
-  // Handle internship application
   const handleApply = () => {
     if (selectedFiles.length === 0) {
       alert("You must upload at least one document before applying.");
@@ -49,8 +44,20 @@ function Selection() {
     }
 
     let appliedInternships = JSON.parse(localStorage.getItem("appliedInternships")) || [];
+
+    const alreadyApplied = appliedInternships.some(
+      (app) => app.title === internship.title && app.company === internship.company
+    );
+
+    if (alreadyApplied) {
+      alert("You have already applied for this internship.");
+      return;
+    }
+
     appliedInternships.push({
       ...internship,
+      role: internship.title, // use title as position
+      status: "Pending", // initialize with Pending status
       documents: selectedFiles.map((file) => file.name),
     });
 
@@ -59,7 +66,6 @@ function Selection() {
     navigate("/availableCompanies");
   };
 
-  // Sliding sidebar hover effects
   const handleMouseEnter = () => {
     setSidebarWidth("16rem");
     setIsHovered(true);
@@ -72,28 +78,27 @@ function Selection() {
 
   return (
     <div className="w-screen min-h-screen bg-gray-100 pt-12 relative">
-      {/* Navigation Bar */}
       <NavBar />
 
-      {/* Sliding Sidebar */}
+      {/* Sidebar */}
       <div
         className="fixed right-0 top-0 h-full z-50 transition-all duration-300"
         style={{ width: sidebarWidth }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-         {role && (
-  <RenderSidebar
-    role={role}
-    sidebarWidth={sidebarWidth}
-    isHovered={isHovered}
-    handleMouseEnter={handleMouseEnter}
-    handleMouseLeave={handleMouseLeave}
-  />
-)}
+        {role && (
+          <RenderSidebar
+            role={role}
+            sidebarWidth={sidebarWidth}
+            isHovered={isHovered}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
+          />
+        )}
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-4xl mx-auto mt-16">
         <h2 className="text-3xl font-semibold text-green-700 mb-4 text-center">
           {internship.title}
@@ -115,7 +120,7 @@ function Selection() {
           <p className="text-gray-700 mb-2">Skills Required: N/A</p>
         )}
 
-        {/* Document Upload Section */}
+        {/* Upload Section */}
         <div className="mb-6">
           <h3 className="text-xl font-semibold text-green-600 mb-2">
             Upload CV and any Additional Documents:
@@ -127,7 +132,6 @@ function Selection() {
             className="border border-green-400 p-2 rounded w-full mb-2"
           />
 
-          {/* Display the list of selected documents */}
           {selectedFiles.length > 0 && (
             <div className="mt-4">
               <h4 className="text-green-700 font-semibold mb-2">
@@ -160,7 +164,7 @@ function Selection() {
         <div className="flex justify-end mt-4">
           <button
             onClick={handleApply}
-            className="bg-green-700 text-white py-3 rounded-md font-semibold hover:bg-green-800 transition-all"
+            className="bg-green-700 text-white py-3 px-6 rounded-md font-semibold hover:bg-green-800 transition-all"
           >
             Apply Now
           </button>

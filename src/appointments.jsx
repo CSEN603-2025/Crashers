@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Video, CheckCircle, XCircle, CalendarPlus, X } from "lucide-react";
 import NavBar from "./navBar";
-import SlidingSidebarPro from "./slidingBarPro";
+import RenderSidebar from "./whichSideBar";
 
 const initialAppointments = [
   {
@@ -21,6 +21,11 @@ const initialAppointments = [
 ];
 
 function Appointments() {
+   const [role, setRole] = useState(null); // State for role
+        useEffect(() => {
+          const storedRole = localStorage.getItem('role');
+          setRole(storedRole);
+        }, []);
   const [appointments, setAppointments] = useState(initialAppointments);
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
@@ -182,13 +187,15 @@ function Appointments() {
         </div>
       )}
 
-      {/* Sidebar */}
-      <SlidingSidebarPro
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+     {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
     </div>
   );
 }

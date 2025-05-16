@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import SCADSidebar from "./scadSide";
+import React, { useState, useEffect } from "react";
+import RenderSidebar from "./whichSideBar";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./navBar";
 
 const SCADStatistics = () => {
+  const [role, setRole] = useState(null); // State for role
+    useEffect(() => {
+      const storedRole = localStorage.getItem('role');
+      setRole(storedRole);
+    }, []);
     const navigate = useNavigate();
   const [reportGenerated, setReportGenerated] = useState(false);
  const [sidebarWidth, setSidebarWidth] = useState("6rem");
@@ -47,12 +52,15 @@ const SCADStatistics = () => {
      <div>
                <NavBar/> 
 
-      <SCADSidebar
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+       {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
     <div className="w-screen mt-24 bg-gray-100 min-h-screen text-gray-800 font-sans px-6 py-12"
   >
       <h1 className="text-4xl text-center font-poppins text-green-800 mb-10">

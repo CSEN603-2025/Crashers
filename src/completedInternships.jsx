@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import SlidingSidebar from "./SlidingSidebar";
+import RenderSidebar from "./whichSideBar";
 import NavBar from "./navBar"; // Added NavBar import
 import { useLocation } from "react-router-dom";
 
 const CompletedInternships = () => {
+  const [role, setRole] = useState(null); // State for role
+    useEffect(() => {
+      const storedRole = localStorage.getItem('role');
+      setRole(storedRole);
+    }, []);
   const { state: internship } = useLocation(); // Get internship details from navigation state
   const [evaluation, setEvaluation] = useState({ comment: "", recommend: false });
   const [submittedEvaluation, setSubmittedEvaluation] = useState(false);
@@ -53,7 +58,7 @@ const CompletedInternships = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-gray-100 flex flex-col">
+    <div className="w-screen min-h-screen bg-gray-100 flex flex-col">
       {/* Navigation Bar */}
       <NavBar />
 
@@ -125,19 +130,15 @@ const CompletedInternships = () => {
         </div>
 
         {/* Sliding Sidebar */}
-        <div
-          className="fixed right-0 top-24 h-full z-50 transition-all duration-300"
-          style={{ width: sidebarWidth }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <SlidingSidebar
-            sidebarWidth={sidebarWidth}
-            isHovered={isHovered}
-            handleMouseEnter={handleMouseEnter}
-            handleMouseLeave={handleMouseLeave}
-          />
-        </div>
+         {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
       </div>
     </div>
   );

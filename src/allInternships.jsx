@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SlidingSidebar from "./SlidingSidebar";
+import RenderSidebar from "./whichSideBar";
 import NavBar from "./navBar";
 
 const allInternships = [
@@ -64,6 +64,11 @@ const AllInternships = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const navigate = useNavigate();
+const [role, setRole] = useState(null); // State for role
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    setRole(storedRole);
+  }, []);
 
   // Sidebar state
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
@@ -199,12 +204,15 @@ const AllInternships = () => {
         </div>
       </div>
 
-      <SlidingSidebar
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+     {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
     </div>
   );
 };

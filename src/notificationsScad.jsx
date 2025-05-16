@@ -4,62 +4,56 @@ import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 
 const notificationsData = [
+  
+  
+ 
+  
   {
-    id: 1,
-    sender: "SC",
-    title: "SCAD Acceptance",
+    id: 5,
+    sender: "Student",
+    title: "Incoming Call: Career Guidance",
     date: "2025-05-13",
     isRead: false,
-    type: "Live",
+    type: "Call",
     details: {
-      name: null,
-      description: "Your Application to join has been accepted!",
-      speaker: null,
-      agenda: null,
-      start: null,
-      end: null,
-      type: null,
-      actionLabel: null,
-      actionUrl: null,
+      name: "Incoming Video Call",
+      description: "You have an incoming video call from Student for Career Guidance.",
+      showActions: true,
     },
   },
   {
-    id: 2,
-    sender: "SC",
-    title: "New Application",
-    date: "2025-05-10",
+    id: 6,
+    sender: "Scad",
+    title: "Appointment Accepted",
+    date: "2025-05-13",
     isRead: false,
+    type: "Appointment",
     details: {
-      name: null,
-      description: "Sara Ahmed applied for Marketing Intern Position.",
-      speaker: null,
-      agenda: null,
-      type: null,
-      actionLabel: null,
-      actionUrl: null,
+      name: "Student Appointment",
+      description: "Your appointment has been accepted by the Student.",
+      officerStatus: "online",
+      showStatus: true,
     },
   },
   {
-    id: 3,
-    sender: "SC",
-    title: "New Application",
-    date: "2025-05-10",
+    id: 7,
+    sender: "Student",
+    title: "Student Left the Call",
+    date: "2025-05-13",
     isRead: false,
+    type: "CallUpdate",
     details: {
-      name: null,
-      description: "Omar Haitham applied for Frontend Intern Position.",
-      speaker: null,
-      agenda: null,
-      type: null,
-      actionLabel: null,
-      actionUrl: null,
+      name: "Video Call Ended",
+      description: "The Student has left the video call.",
+      showAlert: true,
     },
   },
+
   
 ];
 
 
-export default function NotificationComp() {
+export default function NotificationScad() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef();
   const handleReject = (id) => {
