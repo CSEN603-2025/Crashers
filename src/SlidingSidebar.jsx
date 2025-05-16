@@ -1,6 +1,7 @@
 import React from "react";
 import { Bell, User, Folder, Briefcase, Search, FileText } from "lucide-react"; // Imported FileText icon for My Reports
 import { useNavigate } from "react-router-dom";
+import { Video } from "lucide-react";
 
 const StudentSlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
   const navigate = useNavigate();
@@ -51,6 +52,13 @@ const StudentSlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, hand
           <FileText className="inline-block mr-2" />  {/* File icon for My Reports */}
           {isHovered && "My Reports"}
         </button>
+        <button
+  onClick={() => navigate("/guidingVideo")}
+  className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+>
+  <Video className="inline-block mr-2" />  {/* Video icon for Guiding Video */}
+  {isHovered && "Guiding Video"}
+</button>
       </div>
     </div>
   );

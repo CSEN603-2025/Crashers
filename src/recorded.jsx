@@ -19,15 +19,16 @@ function Recorded() {
     setIsPlaying(false);
   };
 
-  const handleStop = () => {
+  // New function for Done button (previously stop)
+  const handleDone = () => {
     videoRef.current.pause();
     videoRef.current.currentTime = 0;
     setIsPlaying(false);
     setShowModal(true);
   };
 
-  const goToCertificates = () => {
-    setShowModal(false);
+  // New function for Stop button (previously goToCertificates)
+  const handleStop = () => {
     navigate("/certificates");
   };
 
@@ -44,7 +45,6 @@ function Recorded() {
 
       {/* Bottom Controls */}
       <div className="absolute bottom-0 w-full bg-black bg-opacity-50 py-4 flex justify-between items-center px-20 z-10">
-        
         {/* Left Controls */}
         <div className="flex gap-6">
           <button
@@ -61,6 +61,7 @@ function Recorded() {
             <Pause size={25} />
           </button>
 
+          {/* Stop button now navigates to certificates */}
           <button
             onClick={handleStop}
             className="text-red-500 border border-red-500 rounded-full p-2 hover:bg-red-500 hover:text-white transition-colors"
@@ -70,8 +71,9 @@ function Recorded() {
         </div>
 
         {/* Right Controls */}
+        {/* Done button now stops video and shows modal */}
         <button
-          onClick={goToCertificates}
+          onClick={handleDone}
           className="text-green-500 border border-green-500 rounded-full p-2 flex items-center gap-2 hover:bg-green-500 hover:text-white transition-colors"
         >
           <CheckCircle size={25} />
@@ -85,7 +87,7 @@ function Recorded() {
           <div className="bg-white p-6 rounded-lg shadow-lg w-[28rem] relative">
             <button
               className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
-              onClick={goToCertificates}
+              onClick={handleStop} // closing modal goes to certificates page
             >
               ✖
             </button>

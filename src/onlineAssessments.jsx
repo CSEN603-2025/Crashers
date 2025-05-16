@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "./navBar";
 import SlidingSidebarPro from "./slidingBarPro";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,12 @@ const dummyAssessments = [
       },
       {
         question: "Props are used to:",
-        options: ["Manage local state", "Pass data to components", "Render CSS", "Handle events"],
+        options: [
+          "Manage local state",
+          "Pass data to components",
+          "Render CSS",
+          "Handle events",
+        ],
         correct: "Pass data to components",
       },
     ],
@@ -28,7 +33,12 @@ const dummyAssessments = [
     questions: [
       {
         question: "What does 'let' do in JavaScript?",
-        options: ["Declares a variable", "Imports a module", "Defines a function", "Throws an error"],
+        options: [
+          "Declares a variable",
+          "Imports a module",
+          "Defines a function",
+          "Throws an error",
+        ],
         correct: "Declares a variable",
       },
       {
@@ -70,6 +80,7 @@ const OnlineAssessments = () => {
   const [userAnswers, setUserAnswers] = useState({});
   const [score, setScore] = useState(null);
   const [postedToProfile, setPostedToProfile] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleMouseEnter = () => {
     setSidebarWidth("16rem");
@@ -100,7 +111,10 @@ const OnlineAssessments = () => {
     const updated = [...existing, { title: selectedAssessment.title, score }];
     localStorage.setItem("assessments", JSON.stringify(updated));
     setPostedToProfile(true);
-    navigate("/pro/studentProfile");
+    setShowConfirmation(true);
+
+    // Hide confirmation after 3 seconds
+    setTimeout(() => setShowConfirmation(false), 3000);
   };
 
   return (
@@ -112,7 +126,7 @@ const OnlineAssessments = () => {
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
       />
-      <div className="w-screen mt-24 min-h-screen bg-gray-100 px-6 py-12 text-gray-800 font-poppins">
+      <div className="w-screen mt-24 min-h-screen bg-gray-100 px-6 py-12 text-gray-800 font-poppins relative">
         <h1 className="text-4xl text-green-800 text-center mb-10">Online Assessments</h1>
 
         {!selectedAssessment && (
@@ -203,6 +217,13 @@ const OnlineAssessments = () => {
                 </button>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Confirmation popup */}
+        {showConfirmation && (
+          <div className="absolute top-5 right-5 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg">
+            Score successfully posted to profile!
           </div>
         )}
       </div>

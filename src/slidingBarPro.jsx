@@ -1,113 +1,92 @@
 import React from "react";
-import {
-  ShieldCheck,
-  Search,
-  Briefcase,
-  Folder,
-  NotebookPen,
-  PhoneCall,
-  Eye,
-  BookOpenCheck,
-} from "lucide-react";
+import { Bell, User, Users, BadgeCheck, FileText, Clipboard, NotebookPen, PhoneCall, ShieldCheck, Search, Eye, BookOpenCheck, Video } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const SlidingSidebarPro = ({
-  setShowProfile,
-  sidebarWidth,
-  isHovered,
-  handleMouseEnter,
-  handleMouseLeave,
-}) => {
+const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
   const navigate = useNavigate();
 
   return (
     <div
-      className="fixed top-24 right-0 bg-gray-700 border-l border-gray-300 shadow-lg transition-all duration-300 z-20"
-      style={{
-        width: sidebarWidth,
-        height: "calc(100vh - 6rem)",
-      }}
+      className="fixed top-24 right-0 w-[6rem] bg-gray-700 border-l border-gray-300 shadow-lg transition-all duration-300 z-20 overflow-y-auto"
+      style={{ width: sidebarWidth, height: 'calc(100vh - 6rem)' }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className="flex flex-col pr-10 items-start px-4 py-6 gap-4 overflow-y-auto"
-        style={{ height: "100%" }}
-      >
+      <div className="flex flex-col pr-10 items-start px-4 py-6 gap-4">
         {isHovered && (
-          <span className="font-bold ml-4 text-sm font-poppins text-white">
+          <span className="font-bold ml-4 text-lg font-poppins text-white">
             Menu
           </span>
         )}
 
-        <SidebarButton
-          onClick={() => navigate("/certificates")}
-          icon={<ShieldCheck className="inline-block mr-2" />}
-          label="Your Certificates"
-          isHovered={isHovered}
-        />
-
-        <SidebarButton
+        <button
           onClick={() => navigate("/AvailableCompanies")}
-          icon={<Search className="inline-block mr-2" />}
-          label="Discover Companies"
-          isHovered={isHovered}
-        />
+          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <Search className="inline-block mr-2" />
+          {isHovered && "Discover Companies"}
+        </button>
 
-        <SidebarButton
-          onClick={() => navigate("/AllInternships")}
-          icon={<Briefcase className="inline-block mr-2" />}
-          label="My Internships"
-          isHovered={isHovered}
-        />
+        <button
+          onClick={() => navigate("/certificates")}
+          className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <ShieldCheck className="inline-block mr-2 " />
+          {isHovered && "Your Certificates"}
+        </button>
 
-        <SidebarButton
-          onClick={() => navigate("/InternshipApplications")}
-          icon={<Folder className="inline-block mr-2" />}
-          label="Internship Applications"
-          isHovered={isHovered}
-        />
+        <button
+          onClick={() => navigate("/myReports")}
+          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <FileText className="inline-block mr-2" />
+          {isHovered && "My Reports"}
+        </button>
 
-        <SidebarButton
+   
+
+        <button
           onClick={() => navigate("/workshopPro")}
-          icon={<NotebookPen className="inline-block mr-2" />}
-          label="Online Workshops"
-          isHovered={isHovered}
-        />
+          className="text-left w-full bg-gray-700 text-white text-sm font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <NotebookPen className="inline-block mr-2 " />
+          {isHovered && "Online Workshops"}
+        </button>
 
-        <SidebarButton
+        <button
           onClick={() => navigate("/call")}
-          icon={<PhoneCall className="inline-block mr-2" />}
-          label="Your Appointments"
-          isHovered={isHovered}
-        />
+          className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <PhoneCall className="inline-block mr-2 " />
+          {isHovered && "Your Appointments"}
+        </button>
 
-        <SidebarButton
+        <button
           onClick={() => navigate("/pro/profviews")}
-          icon={<Eye className="inline-block mr-2" />}
-          label="Profile Views"
-          isHovered={isHovered}
-        />
+          className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <Eye className="inline-block mr-2 " />
+          {isHovered && "Profile Views"}
+        </button>
 
-        <SidebarButton
+        <button
           onClick={() => navigate("/pro/onlineassessments")}
-          icon={<BookOpenCheck className="inline-block mr-2" />}
-          label="Online Assessments"
-          isHovered={isHovered}
-        />
+          className="text-left w-full bg-gray-700 text-white font-bold text-sm font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <BookOpenCheck className="inline-block mr-2 " />
+          {isHovered && "Online Assessments"}
+        </button>
+
+        <button
+          onClick={() => navigate("/guidingVideo")}
+          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <Video className="inline-block mr-2" />
+          {isHovered && "Guiding Video"}
+        </button>
       </div>
     </div>
   );
 };
-
-const SidebarButton = ({ onClick, icon, label, isHovered }) => (
-  <button
-    onClick={onClick}
-    className="text-left w-full bg-gray-700 text-white text-sm font-poppins font-medium hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md"
-  >
-    {icon}
-    {isHovered && <span className="text-sm">{label}</span>}
-  </button>
-);
 
 export default SlidingSidebarPro;

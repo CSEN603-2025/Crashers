@@ -29,7 +29,7 @@ navigate('/company');}
      else if (email === 'faculty@example.com') {
       localStorage.setItem("role", "faculty");
 
-      navigate('/studentHome');
+      navigate('/faculty/reports');
     } else {
       alert('Invalid credentials');
     }

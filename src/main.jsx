@@ -41,6 +41,7 @@ import VideoCall from './videoCall.jsx';
 import ProStudentProfile from './prostudprof.jsx';
 import InternshipCycles from './scad.jsx';
 import "./index.css";
+import GuidingVideo from './guidingVideo.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -87,6 +88,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/pro/onlineassessments" element={<OnlineAssessments />} />
         <Route path="/pro/studentProfile" element={<ProStudentProfile />} />
         <Route path="/scad" element={<InternshipCycles />} />
+        <Route path="/guidingVideo" element={<GuidingVideo />} />
+        <Route path="/notificationsStudent" element={<NotificationsStudent />} />
+
     </Routes>
   </BrowserRouter>
 

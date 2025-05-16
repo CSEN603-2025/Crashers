@@ -6,8 +6,7 @@ import NotificationScad from "./notificationsScad";
 
 const RenderNotif = ({
   role,
-  showDropdown,
-  onBellClick,
+ 
 }) => {
   switch (role) {
     case "student":
@@ -16,24 +15,21 @@ const RenderNotif = ({
     case "pro":
       return (
         <NotificationBell
-          showDropdown={showDropdown}
-          onBellClick={onBellClick}
+          
         />
       );
 
     case "company":
       return (
         <NotificationComp
-          showDropdown={showDropdown}
-          onBellClick={onBellClick}
+          
         />
       );
 
     case "scad":
       return (
         <NotificationScad
-          showDropdown={showDropdown}
-          onBellClick={onBellClick}
+        
         />
       );
 

@@ -40,13 +40,7 @@ const FacultySidebar = ({sidebarWidth, isHovered, handleMouseEnter, handleMouseL
   <ChartNoAxesCombined  className="inline-block mr-2" />
   {isHovered && "View Statistics"}
 </button>
-<button
-  onClick={() => navigate("/scad/workshops")}
-  className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
->
-  <TvMinimalPlay  className="inline-block mr-2" />
-  {isHovered && "View Workshops"}
-</button>
+
 
 
       </div>

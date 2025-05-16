@@ -9,36 +9,51 @@ function Selection() {
   const internship = location.state;
   const [role, setRole] = useState(null);
 
+  // Load role from localStorage on mount
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     setRole(storedRole);
+  }, []);
+
+  // Load previously uploaded files from localStorage on mount
+  useEffect(() => {
+    const savedFiles = JSON.parse(localStorage.getItem("uploadedDocuments")) || [];
+    setSelectedFiles(savedFiles);
   }, []);
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [sidebarWidth, setSidebarWidth] = useState("6rem");
   const [isHovered, setIsHovered] = useState(false);
 
+  // When files selected, update state AND localStorage
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedFiles((prev) => [...prev, ...files]);
+    const updatedFiles = [...selectedFiles, ...files.map((f) => ({ name: f.name }))];
+    setSelectedFiles(updatedFiles);
+    localStorage.setItem("uploadedDocuments", JSON.stringify(updatedFiles));
   };
 
+  // Remove file by index - update state AND localStorage
   const handleRemoveFile = (index) => {
     const updatedFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(updatedFiles);
+    localStorage.setItem("uploadedDocuments", JSON.stringify(updatedFiles));
   };
 
+  // Upload is just confirmation; files are already saved in localStorage
   const handleUpload = () => {
     if (selectedFiles.length > 0) {
       alert("Documents uploaded successfully.");
-      setSelectedFiles([]); // Clear the list after upload
     } else {
       alert("Please select documents to upload.");
     }
   };
 
+  // On apply, read selected files from localStorage to link with internship application
   const handleApply = () => {
-    if (selectedFiles.length === 0) {
+    const savedFiles = JSON.parse(localStorage.getItem("uploadedDocuments")) || [];
+
+    if (savedFiles.length === 0) {
       alert("You must upload at least one document before applying.");
       return;
     }
@@ -58,10 +73,15 @@ function Selection() {
       ...internship,
       role: internship.title, // use title as position
       status: "Pending", // initialize with Pending status
-      documents: selectedFiles.map((file) => file.name),
+      documents: savedFiles.map((file) => file.name),
     });
 
     localStorage.setItem("appliedInternships", JSON.stringify(appliedInternships));
+
+    // Clear uploaded documents on successful apply
+    localStorage.removeItem("uploadedDocuments");
+    setSelectedFiles([]);
+
     alert("Application Submitted Successfully!");
     navigate("/availableCompanies");
   };
@@ -133,7 +153,7 @@ function Selection() {
           />
 
           {selectedFiles.length > 0 && (
-            <div className="mt-4">
+            <div className="mt-4 max-h-48 overflow-y-auto">
               <h4 className="text-green-700 font-semibold mb-2">
                 Documents Ready for Upload:
               </h4>
