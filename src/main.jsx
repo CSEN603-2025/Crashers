@@ -38,6 +38,8 @@ import OnlineAssessments from './onlineAssessments.jsx';
 import NotificationsStudent from './notificationsStudent.jsx';
 import MyReports from './myReports.jsx';
 import VideoCall from './videoCall.jsx';
+import ProStudentProfile from './prostudprof.jsx';
+import InternshipCycles from './scad.jsx';
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -82,8 +84,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/scad/stats/report" element={<SCADReportPage />} />
         <Route path="/pro/profviews" element={<CompaniesViewedMe />} />
         <Route path="/pro/onlineassessments" element={<OnlineAssessments />} />
-        <Route path="/scad/availcompanies" element={<AvailableCompanies />} />
-
 
     </Routes>
   </BrowserRouter>
