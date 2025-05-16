@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import SlidingSidebar from "./SlidingSidebar";
+import RenderSidebar from "./whichSideBar";
 import NavBar from "./navBar";
 
 const ViewInternships = () => {
   const { state: company } = useLocation();
   const navigate = useNavigate();
+
+  const [role, setRole] = useState(null); // State for role
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    setRole(storedRole);
+  }, []);
 
   const [sidebarWidth, setSidebarWidth] = React.useState("6rem");
   const [isHovered, setIsHovered] = React.useState(false);
@@ -25,7 +31,6 @@ const ViewInternships = () => {
     setIsHovered(false);
   };
 
-  // Helper function to check if duration matches filter
   const matchesDuration = (internDuration, filterDuration) => {
     if (!filterDuration) return true;
     const durationInMonths = parseInt(internDuration);
@@ -61,14 +66,13 @@ const ViewInternships = () => {
     return searchMatch && industryMatch && durationMatch && paidMatch;
   });
 
-  // Extract unique industries from internships for the filter dropdown
   const uniqueIndustries = [
     ...new Set(company.internships.map((intern) => intern.industry)),
   ];
 
   return (
-    <div className="w-screen  min-h-screen bg-gray-100 text-gray-800 font-sans">
-        <NavBar/>
+    <div className="w-screen min-h-screen bg-gray-100 text-gray-800 font-sans">
+      <NavBar />
       <div className="max-w-full pt-32 mx-auto py-16 px-6 sm:px-8 h-full">
         <h1 className="font-poppins text-4xl font-bold text-green-800 text-center mb-10">
           {company.name} - Available Internships
@@ -146,7 +150,8 @@ const ViewInternships = () => {
                       <strong>Paid:</strong> {intern.paid ? "Yes" : "No"}
                     </p>
                     <p>
-                      <strong>Expected Salary:</strong> {intern.salary}
+                      <strong>Expected Salary:</strong>{" "}
+                      {intern.salary || "Not specified"}
                     </p>
                     <p>
                       <strong>Skills Required:</strong>{" "}
@@ -156,34 +161,44 @@ const ViewInternships = () => {
 
                   <div className="text-sm text-gray-700 mt-4">
                     <strong>Job Description:</strong>
-                    <p className="mt-1">{intern.description || "No description provided."}</p>
+                    <p className="mt-1">
+                      {intern.description || "No description provided."}
+                    </p>
                   </div>
 
-                  {/* Apply Now Button - Aligned to the left */}
-                  <div className="flex justify-start mt-4">
-                    <button
-                      onClick={() => navigate("/selection", { state: intern })}
-                      className="bg-green-600 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-green-700 transition-colors"
-                    >
-                      Apply Now
-                    </button>
-                  </div>
+                  {/* Apply Now Button - Only for students or pros */}
+                  {(role === "student" || role === "pro") && (
+                    <div className="flex justify-start mt-4">
+                      <button
+                        onClick={() =>
+                          navigate("/selection", { state: intern })
+                        }
+                        className="bg-green-600 text-white font-bold font-poppins py-2 px-6 rounded-md shadow-md hover:bg-green-700 transition-colors"
+                      >
+                        Apply Now
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">No internships match your criteria.</p>
+            <p className="text-center text-gray-500">
+              No internships match your criteria.
+            </p>
           )}
         </div>
       </div>
 
-      <SlidingSidebar
-        setShowProfile={() => {}}
-        sidebarWidth={sidebarWidth}
-        isHovered={isHovered}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+      {role && (
+        <RenderSidebar
+          role={role}
+          sidebarWidth={sidebarWidth}
+          isHovered={isHovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      )}
     </div>
   );
 };

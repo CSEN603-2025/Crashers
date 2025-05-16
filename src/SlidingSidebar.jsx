@@ -2,7 +2,7 @@ import React from "react";
 import { Bell, User, Folder, Briefcase, Search, FileText } from "lucide-react"; // Imported FileText icon for My Reports
 import { useNavigate } from "react-router-dom";
 
-const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
+const StudentSlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
   const navigate = useNavigate();
 
   return (
@@ -56,4 +56,4 @@ const SlidingSidebar = ({ sidebarWidth, isHovered, handleMouseEnter, handleMouse
   );
 };
 
-export default SlidingSidebar;
+export default StudentSlidingSidebar;

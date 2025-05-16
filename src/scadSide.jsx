@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, User, FileText, Clipboard , ChartNoAxesCombined , TvMinimalPlay, Building2  } from "lucide-react";
+import { Bell, User, FileText, Clipboard , ChartNoAxesCombined , TvMinimalPlay, Building2 ,Landmark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -38,11 +38,11 @@ const SCADSidebar = ({sidebarWidth, isHovered, handleMouseEnter, handleMouseLeav
 </button>
 
 <button
-  onClick={() => navigate("/scad/availcompanies")}
+  onClick={() => navigate("/availableCompanies")}
   className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
 >
-  <Building2   className="inline-block mr-2" />
-  {isHovered && "Available Companies"}
+  <Landmark    className="inline-block mr-2" />
+  {isHovered && "Available Internships"}
 </button>
 
 <button

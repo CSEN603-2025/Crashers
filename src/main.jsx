@@ -79,6 +79,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/scad/allstudents" element={<AllStudents />} />
       <Route path="/scad/allreports" element={<AllReports />} />
       <Route path="/scad/workshops" element={<CareerWorkshops />} />
+
       <Route path="/faculty/reports" element={<FacultyReps />} />
       <Route path="/student/:id" element={<StudentProfileScad />} />
       <Route path="/scad/stats/report" element={<SCADReportPage />} />

@@ -4,7 +4,7 @@ import { Bell, User, Users,FileText, Clipboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 
-const SlidingSidebar = ({ setShowProfile, sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
+const CompSlidingSidebar = ({ setShowProfile, sidebarWidth, isHovered, handleMouseEnter, handleMouseLeave }) => {
     const navigate = useNavigate();
 
   return (
@@ -44,4 +44,4 @@ const SlidingSidebar = ({ setShowProfile, sidebarWidth, isHovered, handleMouseEn
   );
 };
 
-export default SlidingSidebar;
+export default CompSlidingSidebar;

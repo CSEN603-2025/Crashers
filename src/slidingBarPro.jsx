@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, User, Users,BadgeCheck,FileText, Clipboard,NotebookPen,PhoneCall, ShieldCheck, Eye ,BookOpenCheck  } from "lucide-react";
+import { Bell, User, Users,BadgeCheck,FileText, Clipboard,NotebookPen,PhoneCall, ShieldCheck,Search, Eye ,BookOpenCheck  } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,7 +27,13 @@ const SlidingSidebarPro = ({ setShowProfile, sidebarWidth, isHovered, handleMous
   <ShieldCheck className="inline-block mr-2 " />
   {isHovered && "Your Certificates"}
 </button>
-
+ <button
+          onClick={() => navigate("/AvailableCompanies")}
+          className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1"
+        >
+          <Search className="inline-block mr-2" />
+          {isHovered && "Discover Companies"}
+        </button>
         <button className="text-left w-full bg-gray-700 text-white font-bold font:poppins hover:border-black hover:bg-gray-500 transition-all duration-300 py-2 px-4 rounded-md transform translate-x-1">
           <Clipboard className="inline-block mr-2" />
           {isHovered && "All Jobs"}

@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import SlidingSidebar from "./SlidingSidebar";
+import RenderSidebar from "./whichSideBar"; 
 import NavBar from "./navBar"; // Importing the NavBar
 
 function Selection() {
   const location = useLocation();
   const navigate = useNavigate();
   const internship = location.state;
+  const [role, setRole] = useState(null); 
+     useEffect(() => {
+        const storedRole = localStorage.getItem('role');
+        setRole(storedRole);
+      }, []);
 
   console.log("Internship data received:", internship); // Debugging
 
@@ -77,12 +82,15 @@ function Selection() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <SlidingSidebar
-          sidebarWidth={sidebarWidth}
-          isHovered={isHovered}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-        />
+         {role && (
+  <RenderSidebar
+    role={role}
+    sidebarWidth={sidebarWidth}
+    isHovered={isHovered}
+    handleMouseEnter={handleMouseEnter}
+    handleMouseLeave={handleMouseLeave}
+  />
+)}
       </div>
 
       {/* Main Content Area */}
